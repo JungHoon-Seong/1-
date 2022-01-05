@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<settings>
+	<setting name="jdbcTypeForNull" value="NULL"/>
+</settings>
+
+<!-- 추가 및 수정 시 작성자와 날짜, 내용 등을 주석으로 남기기 -->
+<typeAliases>
+	  
+	<typeAlias type="com.company.admin.model.vo.Admin" alias="Admin"/>
+	<typeAlias type="com.company.board.model.vo.Board" alias="Board"/>
+	<typeAlias type="com.company.member.model.vo.Member" alias="Member"/> 
+	
+</typeAliases>
+
+<!-- 추가 및 수정 시 작성자와 날짜, 내용 등을 주석으로 남기기 -->
+<mappers>
+	<mapper resource="mappers/Board-mapper.xml"/>
+	<mapper resource="mappers/Member-mapper.xml"/>
+</mappers>
+
+
+
+
+
+</configuration>

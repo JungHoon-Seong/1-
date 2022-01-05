@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Board">
+
+	<resultMap type="Board" id="BoardMap">
+		<id property="bo_postNo" column="BO_POSTNO"/>
+		<result property="mm_userId" column="MM_USERID"/>
+		<result property="bo_postTitle" column="BO_POSTTITLE"/>
+		<result property="bo_postContent" column="BO_POSTCONTENT"/>
+		<result property="bo_postView" column="BO_POSTVIEW"/>
+		<result property="bo_writtenDate" column="BO_WRITTENDATE"/>
+	</resultMap>
+	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM board
+	</select>
+	
+	<select id="selectBoardList" resultMap="BoardMap">
+		SELECT 
+		bo_postNo,
+		mm_userId,
+		bo_postTitle,
+		to_char(BO_WRITTENDATE, 'YYYY/MM/DD') BO_WRITTENDATE,
+		BO_POSTVIEW
+		 FROM board
+		 ORDER BY bo_postNo DESC
+	</select>
+	
+	
+</mapper>
