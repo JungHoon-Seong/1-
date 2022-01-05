@@ -43,17 +43,15 @@ public class MemberController {
 		
 		
 		Member vo = new Member(id, pwd);
-		String viewName = "";
 		
-		//System.out.println("입력한 id값: " + id);
-		//System.out.println("입력한 pwd값: " + pwd);
+				
 		try {
-			Member login = memberSerivce.login(vo);
+			Member loginResult = memberSerivce.login(vo);
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html; charset=UTF-8");
-			if(login != null) {
+			if(loginResult != null) {
 				
-				session.setAttribute("member", login);
+				session.setAttribute("member", loginResult);
 				
 				//out.println("<script>alert('로그인에 성공하였습니다.'); </script>");
 				logger.info("로그인 성공");
