@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,12 +56,15 @@ public class MemberController {
 				
 				//out.println("<script>alert('로그인에 성공하였습니다.'); </script>");
 				logger.info("로그인 성공");
+				//mv.addObject("msg", "로그인에 성공하였습니다");
 				//mv.setViewName("redirect:/board");
 			}else{
 				
-				//out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요');   </script>");
+				out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요');   </script>");
 				logger.info("로그인 실패");
+				//mv.addObject("msg", "로그인에 실패하였습니다 아이디와 비밀번호를 확인해주세요.");
 				//mv.setViewName("redirect:/login");
+				return "/login/login";
 				
 			}
 			
@@ -75,5 +79,22 @@ public class MemberController {
 		
 		//return mv;
 		return "home";
+	}
+	/*
+	@RequestMapping("logout")
+	public ModelAndView logout(ModelAndView mv, HttpSession session) {
+		String viewName = "";
+		session.invalidate();
+		viewName ="index";
+		mv.setViewName(viewName);
+		return mv;
+	} */
+	@RequestMapping("logout")
+	public ModelAndView logout(ModelAndView mv, HttpSession session) {
+		String viewName = "";
+		session.invalidate();
+		viewName ="home";
+		mv.setViewName(viewName);
+		return mv;
 	}
 }

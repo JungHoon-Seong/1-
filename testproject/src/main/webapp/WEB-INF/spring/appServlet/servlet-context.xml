@@ -42,31 +42,17 @@
 
 
 
-	 <!-- 
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-     	<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	-->
-	<!--
-	<bean id="controllerAdvice"	class=""/>  
-	-->
-
-	<!-- 
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-	<tx:attributes>
-		<tx:method name="get*" rollback-for="Exception" read-only="true"/>
-		<tx:method name="insert*" rollback-for="Exception"/>
-		<tx:method name="update" rollback-for="Exception"/>
-		<tx:method name="delete*" rollback-for="Exception"/>
-	</tx:attributes>
-	</tx:advice>
-
+	<beans:bean id="testAop" class="common.service.AroundLog"/>
+	
 	<aop:config>
-		<aop:pointcut id="serviceTxMethod" expression="execution(public * com.mycompnay.testapp..*Service.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceTxMethod" />
+		<aop:aspect id="testAspect" ref="testAop">
+			<aop:around pointcut="execution(public * com.company..*(..))" method="aroundLog" />		
+		</aop:aspect>
 	</aop:config>
 	
-	-->
+	
+	
 	
 </beans:beans>
