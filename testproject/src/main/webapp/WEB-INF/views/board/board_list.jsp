@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${ctx }../resources/css/ui.jqgrid.css"/>
+<script type="text/javascript" src="<c:url value='../resources/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
+
+
+<script src="../libs/js/jquery.jqGrid.min.js"></script>
 <style>
 
 section {
@@ -38,6 +44,31 @@ a:hover {
 
 }
 </style>
+<script>
+function makeTable(id,array){
+	$("#"+id).jqGrid({
+		datatype:"local",
+		height:250,
+		width: 630,
+		colNames:['글번호','제목','글쓴이','조회수','작성일'],
+		colModel:[
+			{name:'bo_postNo',align:'right'},
+			{name:'bo_postTitle',align:'right'},
+			{name:'mm_userId',align:'right'},
+			{name:'bo_postTitle',align:'right'},
+			{name:'bo_writtenDate',align:'right'}
+		],
+		caption:"게시판 데이터"
+		
+	});
+	
+	for(var I in array){
+		$("#"+id).jqGrid('addRowData',i+1,array[i]);
+		
+	}
+}
+makeTable('table1',dataArray);
+</script>
 </head>
 <body>
 <section>
@@ -73,6 +104,9 @@ a:hover {
 				<li><a href="board?p=${endPage+1}">다음</a></li> </c:if>
 		</ul>
 	</div>
+	
+	<table id="table1"></table>
+	
 </section>
 </body>
 </html>

@@ -9,6 +9,9 @@
 		<result property="bo_postContent" column="BO_POSTCONTENT"/>
 		<result property="bo_postView" column="BO_POSTVIEW"/>
 		<result property="bo_writtenDate" column="BO_WRITTENDATE"/>
+		<result property="bo_modificationDate" column="BO_MODIFICATIONDATE"/>
+		<result property="bi_imgsrc" column="BI_IMGSRC"/>
+		<result property="bi_filesrc" column="BI_FILESRC"/>
 	</resultMap>
 	
 	<select id="getListCount" resultType="_int">
@@ -25,6 +28,32 @@
 		 FROM board
 		 ORDER BY bo_postNo DESC
 	</select>
+	
+	<insert id="insertContent" parameterType="Board" statementType="PREPARED">
+		INSERT INTO board VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- insert all 사용 -->
+	<insert id="insertContentwithImg" parameterType="Board" statementType="PREPARED">
+		INSERT ALL 
+		INTO BOARD VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
+		INTO BOARD_IMAGE VALUES(SEQ_boardImage_no.nextval, SEQ_board_no.currval  ,#{mm_userId}, #{bi_imgsrc}, #{bi_filesrc})
+	</insert>
+	
+	<update id="updateContent" parameterMap="Board" statementType="PREPARED">
+		UPDATE BOARD SET bo_postitle = #{bo_postTitle}, bo_postContent = #{bo_postContent} WHERE BO_POSTNO = #{bo_postNo}
+	</update>
+	
+	<!-- update all 사용 -->
+	<update id="updateContentwithImg" parameterMap="Board" statementType="PREPARED">
+		UPDATE BOARD SET bo_postitle = #{}, WHERE BO_POSTNO = #{bo_posstNo};
+	</update>
+	
+	<delete id="deleteContent" parameterType="Board" statementType="PREPARED">
+		DELETE FROM BOARD WHERE bo_postNo = #{bo_postNo}
+	</delete>
+	
+	
 	
 	
 </mapper>

@@ -31,4 +31,35 @@ public class BoardDao {
 		
 	}
 
+	public int insertBoardwithImg(Board bvo) {
+		int result = 0;
+		result = sqlSession.insert("Board.insertContentwithImg",bvo);
+		return result;
+	}
+
+	public int insertBoard(Board bvo) {
+		int result = 0;
+		result = sqlSession.insert("Board.insertContent",bvo);
+		return result;
+	}
+
+	public List<Board> selectBoardView(int brno) {
+		List<Board> brlist;
+		
+		brlist = sqlSession.selectList("Board.selectContentView",brno);
+		return brlist;
+		
+	}
+
+	public int updateBoard(Board bvo) {
+		int result = 0;
+		result = sqlSession.update("Board.updateContent",bvo);		
+		return result;
+	}
+	public int updateBoardwithImg(Board bvo) {
+		int result = 0;
+		result = sqlSession.update("Board.updateContentwithImg",bvo);		
+		return result;
+	}
+
 }

@@ -30,4 +30,28 @@ public class BoardService {
 		return vo;
 	}
 
+	public int insertBoardwithImg(Board bvo) {
+		return boardDao.insertBoardwithImg(bvo);
+	}
+
+	public int insertBoard(Board bvo) {
+		return boardDao.insertBoard(bvo);
+	}
+
+	public List<Board> selectBoardView(int brno) {
+		List<Board> vo = null;
+		try {
+			vo = boardDao.selectBoardView(brno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	public int updateBoard(Board bvo) {
+		return boardDao.updateBoard(bvo);
+	}
+
+	
+
 }
