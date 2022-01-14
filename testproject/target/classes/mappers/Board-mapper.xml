@@ -9,7 +9,7 @@
 		<result property="bo_postContent" column="BO_POSTCONTENT"/>
 		<result property="bo_postView" column="BO_POSTVIEW"/>
 		<result property="bo_writtenDate" column="BO_WRITTENDATE"/>
-		<result property="bo_modificationDate" column="BO_MODIFICATIONDATE"/>
+		<result property="bo_modificationDate" column="BO_UPDATEDATE"/>
 		<result property="bi_imgsrc" column="BI_IMGSRC"/>
 		<result property="bi_filesrc" column="BI_FILESRC"/>
 	</resultMap>
