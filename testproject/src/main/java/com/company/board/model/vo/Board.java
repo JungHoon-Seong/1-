@@ -4,26 +4,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 
-//BO_POSTNO      NOT NULL NUMBER(11)    
-//MM_USERID               VARCHAR2(20)  
-//BO_POSTTITLE   NOT NULL VARCHAR2(255) 
-//BO_POSTCONTENT NOT NULL VARCHAR2(255) 
-//BO_POSTVIEW    NOT NULL NUMBER(11)  
+//BO_POSTNO      NOT NULL NUMBER(11)     
+//BO_USERID               VARCHAR2(20)   
+//BO_USERNO               NUMBER(11)     
+//BO_POSTTITLE   NOT NULL VARCHAR2(1000) 
+//BO_POSTCONTENT NOT NULL VARCHAR2(3000) 
+//BO_POSTVIEW    NOT NULL NUMBER(11)     
+//BO_CREATEDATE  NOT NULL DATE           
+//BO_UPDATEDATE  NOT NULL DATE      
 
 //BI_IMGSRC           VARCHAR2(2000) 
-//BI_FILESRC          VARCHAR2(2000)
+//BF_FILESRC          VARCHAR2(2000)
 
 public class Board {
 
 	private int bo_postNo;
-	private String mm_userId;
+	private String bo_userId;
+	private String bo_userNo;
 	private String bo_postTitle;
 	private String bo_postContent;
 	private int bo_postView;
-	private String bo_writtenDate;
-	private String bo_modificationDate;
+	private String bo_createDate;
+	private String bo_updateDate;
 	private String bi_imgsrc;
-	private String bi_filesrc;
+	private String bf_filesrc;
 	
 	
 	public Board() {
@@ -32,7 +36,8 @@ public class Board {
 	
 
 	public Board(String userId, String title, String content) {
-		this.mm_userId = userId;
+		this.bo_userId = userId;
+		
 		this.bo_postTitle = title;
 		this.bo_postContent = content;
 	}
@@ -46,26 +51,27 @@ public class Board {
 		this.bo_postTitle = title;
 		this.bo_postContent = content;
 		this.bi_imgsrc = imgsrc;
-		this.bi_filesrc = filesrc;
+		this.bf_filesrc = filesrc;
 	}
 
 
 	public Board(String userId, String title, String content, String imgsrc, String filesrc) {
-		this.mm_userId = userId;
+		this.bo_userId = userId;
 		this.bo_postTitle = title;
 		this.bo_postContent = content;
 		this.bi_imgsrc = imgsrc;
-		this.bi_filesrc = filesrc;
-	}
-
-	@Override
-	public String toString() {
-		return "Board [bo_postNo=" + bo_postNo + ", mm_userId=" + mm_userId + ", bo_postTitle=" + bo_postTitle
-				+ ", bo_postContent=" + bo_postContent + ", bo_postView=" + bo_postView + ", bo_writtenDate="
-				+ bo_writtenDate + ", bo_modificationDate=" + bo_modificationDate + ", bi_imgsrc=" + bi_imgsrc
-				+ ", bi_filesrc=" + bi_filesrc + "]";
+		this.bf_filesrc = filesrc;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Board [bo_postNo=" + bo_postNo + ", bo_userId=" + bo_userId + ", bo_userNo=" + bo_userNo
+				+ ", bo_postTitle=" + bo_postTitle + ", bo_postContent=" + bo_postContent + ", bo_postView="
+				+ bo_postView + ", bo_createDate=" + bo_createDate + ", bo_updateDate=" + bo_updateDate + ", bi_imgsrc="
+				+ bi_imgsrc + ", bf_filesrc=" + bf_filesrc + "]";
+	}
+
 	public int getBo_postNo() {
 		return bo_postNo;
 	}
@@ -76,13 +82,23 @@ public class Board {
 	}
 
 
-	public String getMm_userId() {
-		return mm_userId;
+	public String getBo_userId() {
+		return bo_userId;
 	}
 
 
-	public void setMm_userId(String mm_userId) {
-		this.mm_userId = mm_userId;
+	public void setBo_userId(String bo_userId) {
+		this.bo_userId = bo_userId;
+	}
+
+
+	public String getBo_userNo() {
+		return bo_userNo;
+	}
+
+
+	public void setBo_userNo(String bo_userNo) {
+		this.bo_userNo = bo_userNo;
 	}
 
 
@@ -116,23 +132,23 @@ public class Board {
 	}
 
 
-	public String getBo_writtenDate() {
-		return bo_writtenDate;
+	public String getBo_createDate() {
+		return bo_createDate;
 	}
 
 
-	public void setBo_writtenDate(String bo_writtenDate) {
-		this.bo_writtenDate = bo_writtenDate;
+	public void setBo_createDate(String bo_createDate) {
+		this.bo_createDate = bo_createDate;
 	}
 
 
-	public String getBo_modificationDate() {
-		return bo_modificationDate;
+	public String getBo_updateDate() {
+		return bo_updateDate;
 	}
 
 
-	public void setBo_modificationDate(String bo_modificationDate) {
-		this.bo_modificationDate = bo_modificationDate;
+	public void setBo_updateDate(String bo_updateDate) {
+		this.bo_updateDate = bo_updateDate;
 	}
 
 
@@ -146,13 +162,15 @@ public class Board {
 	}
 
 
-	public String getBi_filesrc() {
-		return bi_filesrc;
+	public String getBf_filesrc() {
+		return bf_filesrc;
 	}
 
 
-	public void setBi_filesrc(String bi_filesrc) {
-		this.bi_filesrc = bi_filesrc;
+	public void setBf_filesrc(String bf_filesrc) {
+		this.bf_filesrc = bf_filesrc;
 	}
+
+	
 	
 }

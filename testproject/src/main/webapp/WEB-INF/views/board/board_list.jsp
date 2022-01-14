@@ -45,18 +45,21 @@ a:hover {
 }
 </style>
 <script>
+
 function makeTable(id,array){
 	$("#"+id).jqGrid({
 		datatype:"local",
 		height:250,
 		width: 630,
-		colNames:['글번호','제목','글쓴이','조회수','작성일'],
+		colNames:['글번호','이미지','제목','글쓴이','조회수','작성일','수정일'],
 		colModel:[
 			{name:'bo_postNo',align:'right'},
+			{},
 			{name:'bo_postTitle',align:'right'},
-			{name:'mm_userId',align:'right'},
+			{name:'bo_userId',align:'right'},
 			{name:'bo_postTitle',align:'right'},
-			{name:'bo_writtenDate',align:'right'}
+			{name:'bo_createDate',align:'right'},
+			{name:'bo_updateDate',align:'right'}
 		],
 		caption:"게시판 데이터"
 		
@@ -75,19 +78,23 @@ makeTable('table1',dataArray);
 <table>
 	<tr>
 		<th>No.</th>
+		<th>이미지</th>
 		<th>제목</th>
 		<th>글쓴이</th>
 		<th>조회수</th>
 		<th>작성일</th>
+		<th>수정일</th>
 	</tr>
 	<c:if test="${blist != null }">
 		<c:forEach items="${blist}" var="vo">
 		<tr>
 			<td>${vo.bo_postNo }</td>
-			<td>${vo.bo_postTitle }</td>
-			<td>${vo.mm_userId }</td>
+			<td><img src="${vo.bi_imgsrc }" class="img" onerror="this.src='resoruces/img/logo.png'" alt='' /> </td>
+			<td><a href="board-view?no=${vo.brNo }">${vo.bo_postTitle }</a> </td>
+			<td>${vo.bo_userId }</td>
 			<td>${vo.bo_postView }</td>
-			<td>${vo.bo_writtenDate }</td>
+			<td>${vo.bo_createDate }</td>
+			<td>${vo.bo_updateDate }</td>
 		</tr>
 		</c:forEach>
 	</c:if>

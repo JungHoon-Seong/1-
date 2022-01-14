@@ -4,7 +4,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+  <title>로그인 - jqGrid 게시판 프로젝트</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="resources/img/favicon.png" rel="icon">
+  <link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="resources/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="resources/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="resources/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Selecao - v4.7.0
+  * Template URL: https://bootstrapmade.com/selecao-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
 <style>
 fieldset {
 	width: 280px;
@@ -49,6 +79,7 @@ fieldset {
 </style>
 </head>
 <body>
+<jsp:include page="../header/header.jsp" flush="true" />
 	<form action="login" method="post">
 	<fieldset>
 		<ul>
@@ -63,6 +94,6 @@ fieldset {
 		</div>
 		</fieldset>
 	</form>
-	
+<jsp:include page="../footer/footer.jsp" flush="true" />
 </body>
 </html>

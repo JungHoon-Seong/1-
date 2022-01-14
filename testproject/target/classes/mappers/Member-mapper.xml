@@ -4,13 +4,19 @@
 
 	<resultMap type="Member" id="MemberMap">
 		<id property="mm_userId" column="MM_USERID"/>
+		<id property="mm_userNo" column="MM_USERNO"/>
 		<result property="mm_userPwd" column="MM_USERPWD" />
 		<result property="mm_enrollDate" column="MM_USERENROLLDATE" />
 		<result property="mm_userEmail" column="MM_USEREMAIL" />
+		<result property="mm_userPhone" column="MM_USERPHONE" />
+		<result property="mm_adminCheck" column="MM_ADMINCHECK" />
 	</resultMap>
+
 
 	<select id="login" resultMap="MemberMap" parameterType="Member">
 		SELECT mm_userid,mm_userpwd FROM member
 		WHERE mm_userid = #{mm_userId} AND mm_userpwd = #{mm_userPwd} 
 	</select>
+	
+	 
 </mapper>

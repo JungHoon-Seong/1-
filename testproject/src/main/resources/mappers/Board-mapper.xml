@@ -4,14 +4,15 @@
 
 	<resultMap type="Board" id="BoardMap">
 		<id property="bo_postNo" column="BO_POSTNO"/>
-		<result property="mm_userId" column="MM_USERID"/>
+		<result property="bo_userId" column="BO_USERID"/>
+		<result property="bo_userNo" column="BO_USERNO"/>
 		<result property="bo_postTitle" column="BO_POSTTITLE"/>
 		<result property="bo_postContent" column="BO_POSTCONTENT"/>
 		<result property="bo_postView" column="BO_POSTVIEW"/>
-		<result property="bo_writtenDate" column="BO_WRITTENDATE"/>
-		<result property="bo_modificationDate" column="BO_UPDATEDATE"/>
+		<result property="bo_createDate" column="BO_CREATEDATE"/>
+		<result property="bo_updateDate" column="BO_UPDATEDATE"/>
 		<result property="bi_imgsrc" column="BI_IMGSRC"/>
-		<result property="bi_filesrc" column="BI_FILESRC"/>
+		<result property="bf_filesrc" column="Bf_FILESRC"/>
 	</resultMap>
 	
 	<select id="getListCount" resultType="_int">
@@ -19,21 +20,26 @@
 	</select>
 	
 	<select id="selectBoardList" resultMap="BoardMap">
-		SELECT 
+	<![CDATA[
+	SELECT * FROM(
+	SELECT 
 		bo_postNo,
-		mm_userId,
+		bo_userId,
 		bo_postTitle,
-		to_char(BO_WRITTENDATE, 'YYYY/MM/DD') BO_WRITTENDATE,
+		to_char(BO_CREATENDATE, 'YYYY/MM/DD') BO_CREATEDATE,
+		to_char(BO_UPDATEDATE, 'YYYY/MM/DD') BO_UPDATEDATE,
 		BO_POSTVIEW
-		 FROM board
+	 FROM board t1 LEFT OUTER JOIN board_image t2 ON (t1.bo_postNo = t2.bI_postNo))
 		 ORDER BY bo_postNo DESC
+	 ]]>
 	</select>
 	
 	<insert id="insertContent" parameterType="Board" statementType="PREPARED">
 		INSERT INTO board VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
 	</insert>
-	
+	 
 	<!-- insert all 사용 -->
+	<!-- 
 	<insert id="insertContentwithImg" parameterType="Board" statementType="PREPARED">
 		INSERT ALL 
 		INTO BOARD VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
@@ -43,8 +49,9 @@
 	<update id="updateContent" parameterMap="Board" statementType="PREPARED">
 		UPDATE BOARD SET bo_postitle = #{bo_postTitle}, bo_postContent = #{bo_postContent} WHERE BO_POSTNO = #{bo_postNo}
 	</update>
-	
+	 -->
 	<!-- update all 사용 -->
+	<!-- 
 	<update id="updateContentwithImg" parameterMap="Board" statementType="PREPARED">
 		UPDATE BOARD SET bo_postitle = #{}, WHERE BO_POSTNO = #{bo_posstNo};
 	</update>
@@ -52,7 +59,7 @@
 	<delete id="deleteContent" parameterType="Board" statementType="PREPARED">
 		DELETE FROM BOARD WHERE bo_postNo = #{bo_postNo}
 	</delete>
-	
+	  -->
 	
 	
 	
