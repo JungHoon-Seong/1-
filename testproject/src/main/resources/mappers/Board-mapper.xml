@@ -4,7 +4,6 @@
 
 	<resultMap type="Board" id="BoardMap">
 		<id property="bo_postNo" column="BO_POSTNO"/>
-		<result property="bo_userId" column="BO_USERID"/>
 		<result property="bo_userNo" column="BO_USERNO"/>
 		<result property="bo_postTitle" column="BO_POSTTITLE"/>
 		<result property="bo_postContent" column="BO_POSTCONTENT"/>
@@ -14,7 +13,7 @@
 		<result property="bi_imgsrc" column="BI_IMGSRC"/>
 		<result property="bf_filesrc" column="Bf_FILESRC"/>
 	</resultMap>
-	
+	<!-- 목록 조회 쿼리문 시작-->
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM board
 	</select>
@@ -22,22 +21,45 @@
 	<select id="selectBoardList" resultMap="BoardMap">
 	<![CDATA[
 	SELECT * FROM(
-	SELECT 
-		bo_postNo,
-		bo_userId,
+	SELECT 	
+        rownum Rnum,
+        bo_postNo,
+		bi_imgsrc,
+		bo_userNo,
 		bo_postTitle,
-		to_char(BO_CREATENDATE, 'YYYY/MM/DD') BO_CREATEDATE,
+		to_char(BO_CREATEDATE, 'YYYY/MM/DD') BO_CREATEDATE,
 		to_char(BO_UPDATEDATE, 'YYYY/MM/DD') BO_UPDATEDATE,
-		BO_POSTVIEW
-	 FROM board t1 LEFT OUTER JOIN board_image t2 ON (t1.bo_postNo = t2.bI_postNo))
+		BO_POSTVIEW FROM board t1 LEFT OUTER JOIN board_image t2 ON (t1.bo_postNo = t2.bI_postNo))
 		 ORDER BY bo_postNo DESC
 	 ]]>
 	</select>
+	<!-- 목록 조회 쿼리문 끝-->
 	
+	<!-- 게시물 조회 쿼리문 시작 -->
+	<select id="selectContentView" resultMap="BoardMap">
+	<![CDATA[
+	SELECT 
+	 bo_postNo, bi_imgsrc,  bo_postTitle, bo_postContent,
+	  to_char(bo_createDate, 'YYYY/MM/DD') bo_createDate ,
+	  to_char(bo_updateDate, 'YYYY/MM/DD') bo_updateDate ,
+	  bo_postView, bo_userNo, bf_filesrc 
+	  FROM board 
+	  			left outer join Board_Image 
+	  							ON (bo_postNo = bi_postNo) 
+	  			left outer join Board_file 
+	  							ON (bo_postNo = bf_postNo) 
+	  where bo_postNo= #{bo_postNo} 
+		
+	]]>
+	</select>
+	
+	<!-- 게시물 조회 쿼리문 끝-->
+	
+	<!-- 
 	<insert id="insertContent" parameterType="Board" statementType="PREPARED">
 		INSERT INTO board VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
 	</insert>
-	 
+	 -->
 	<!-- insert all 사용 -->
 	<!-- 
 	<insert id="insertContentwithImg" parameterType="Board" statementType="PREPARED">

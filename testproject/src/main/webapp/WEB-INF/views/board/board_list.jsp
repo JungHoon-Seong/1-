@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${ctx }../resources/css/ui.jqgrid.css"/>
-<script type="text/javascript" src="<c:url value='../resources/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
+<title>게시판- jqGrid 게시판 프로젝트</title>
+<link rel="stylesheet" type="text/css" href="${ctx }resources/css/ui.jqgrid.css"/>
+<script type="text/javascript" src="<c:url value='resources/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
 
 
-<script src="../libs/js/jquery.jqGrid.min.js"></script>
+<script src="../../../libs/js/jquery.jqGrid.min.js"></script>
 <style>
 
 section {
@@ -74,6 +74,7 @@ makeTable('table1',dataArray);
 </script>
 </head>
 <body>
+<jsp:include page="../header/header.jsp" flush="true" />
 <section>
 <table>
 	<tr>
@@ -89,8 +90,8 @@ makeTable('table1',dataArray);
 		<c:forEach items="${blist}" var="vo">
 		<tr>
 			<td>${vo.bo_postNo }</td>
-			<td><img src="${vo.bi_imgsrc }" class="img" onerror="this.src='resoruces/img/logo.png'" alt='' /> </td>
-			<td><a href="board-view?no=${vo.brNo }">${vo.bo_postTitle }</a> </td>
+			<td><img src="${vo.bi_imgsrc }" class="img" onerror="" alt='' /> </td>
+			<td><a href="board-view?no=${vo.bo_postNo}" >${vo.bo_postTitle }</a> </td>
 			<td>${vo.bo_userId }</td>
 			<td>${vo.bo_postView }</td>
 			<td>${vo.bo_createDate }</td>
@@ -115,5 +116,6 @@ makeTable('table1',dataArray);
 	<table id="table1"></table>
 	
 </section>
+<jsp:include page="../footer/footer.jsp" flush="true" />
 </body>
 </html>

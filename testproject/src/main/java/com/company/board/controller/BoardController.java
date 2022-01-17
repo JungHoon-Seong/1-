@@ -118,10 +118,12 @@ public class BoardController {
 		return mv;
 	}
 	
+	
 	@RequestMapping(value = "board-view", method = RequestMethod.GET)	
-	public ModelAndView selectBoardView(ModelAndView mv, @RequestParam(value="no")int brno,
+	public ModelAndView selectBoardView(ModelAndView mv, @RequestParam(value="no", defaultValue="0")int brno,
 			HttpServletRequest request) {
 		String viewPage = "";
+		
 		Member memberId= (Member)request.getSession().getAttribute("member");
 		
 		List<Board> boardList = null;
@@ -135,7 +137,7 @@ public class BoardController {
 		//todo 조회수 +1하는 기능 추가해야함
 		
 		
-		mv.addObject("boardList",boardList);
+		mv.addObject("blist",boardList);
 		if(memberId != null) {
 			mv.addObject("memberId", memberId.getMm_userId());
 		}
@@ -221,7 +223,7 @@ public class BoardController {
 	@RequestMapping(value = "board-update", method = RequestMethod.POST)
 	public ModelAndView updateBoard(ModelAndView mv, @RequestParam(value="t")String title,
 			@RequestParam(value="c") String content,
-			@RequestParam(value="no") int brno,
+			@RequestParam(value="no",defaultValue="0") int brno,
 			@RequestParam(value="image")MultipartFile image,
 			@RequestParam(value="files")MultipartFile file,
 			HttpServletRequest request) {
@@ -262,6 +264,7 @@ public class BoardController {
 		mv.setViewName(viewPage);
 		return mv;
 	}
+	
 	
 	
 	

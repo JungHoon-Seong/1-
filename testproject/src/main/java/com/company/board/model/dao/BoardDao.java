@@ -42,7 +42,7 @@ public class BoardDao {
 		result = sqlSession.insert("Board.insertContent",bvo);
 		return result;
 	}
-
+	
 	public List<Board> selectBoardView(int brno) {
 		List<Board> brlist;
 		
@@ -50,7 +50,7 @@ public class BoardDao {
 		return brlist;
 		
 	}
-
+	
 	public int updateBoard(Board bvo) {
 		int result = 0;
 		result = sqlSession.update("Board.updateContent",bvo);		

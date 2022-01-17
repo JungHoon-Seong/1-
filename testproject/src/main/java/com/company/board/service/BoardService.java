@@ -37,7 +37,7 @@ public class BoardService {
 	public int insertBoard(Board bvo) {
 		return boardDao.insertBoard(bvo);
 	}
-
+	
 	public List<Board> selectBoardView(int brno) {
 		List<Board> vo = null;
 		try {
@@ -47,6 +47,7 @@ public class BoardService {
 		}
 		return vo;
 	}
+	
 
 	public int updateBoard(Board bvo) {
 		return boardDao.updateBoard(bvo);
