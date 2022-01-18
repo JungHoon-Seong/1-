@@ -6,6 +6,36 @@
  
 
 <link rel = "stylesheet" type = "text/css" media = "screen" href = "resources/css/ui.jqgrid.css"/>
+   <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="resources/img/favicon.png" rel="icon">
+  <link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="resources/vendor/animate.css/animate.min.css" rel="stylesheet" >
+  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="resources/vendorremixiconremixicon.css" rel="stylesheet">
+  <link href="resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="resources/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Selecao - v4.7.0
+  * Template URL: https://bootstrapmade.com/selecao-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
  
 <!-- <script type="text/javascript" src="/resource/js/common/jquery/jquery-3.2.1.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
@@ -65,8 +95,16 @@
     });
 </script>
 <title>jqGrid</title>
+<style>
+
+  section {
+	margin-top: 500px;
+}
+</style>
 </head>
 <body>
+<jsp:include page="./header/header.jsp" flush="true" />
+<section>
      <!-- jqGrid 플러그인을 사하기위한 table 태그와 div태그 사용 -->
     <table id = "grid"></table>
     <div id = "pager"></div>
@@ -74,10 +112,12 @@
     <c:if test="${memberId != null}" >
 		${memberId.mm_userId}님 환영합니다. <a href="./logout">로그아웃</a>
 	</c:if>
-	<input type="file" name="img"/>
+	<!-- <input type="file" name="img"/> -->
 	<br>
 	<a href="./board">게시판으로 이동</a>
 	<br>
 	<a href="./jqgrid_list">jq테스트페이지로 이동</a>
+</section>
+<jsp:include page="./footer/footer.jsp" flush="true" />
 </body>
 </html>
