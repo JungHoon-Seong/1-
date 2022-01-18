@@ -28,7 +28,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
 		//member라는 세션 id가 null일 경우
 		if(session.getAttribute("member") == null) {
 			//로그인 페이지 이동
-			logger.warn("인터셉트알림! 로그인 세션이 확인되지 않아 로그인 창으로 이동시킴");
+			//logger.warn("인터셉트알림! 로그인 세션이 확인되지 않아 로그인 창으로 이동시킴");
 			response.sendRedirect("./login");
 			//컨트롤러 실행 x
 			return false;

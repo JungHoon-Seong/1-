@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>로그인 - jqGrid 게시판 프로젝트</title>
+<meta charset="UTF-8">
+<title>게시물 수정</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,66 +35,54 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
-<style>
-fieldset {
-	width: 280px;
-	margin: auto;
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <style>
+  
+  section {
+	margin-top: 200px;
 }
-
- ul {
- 	list-style-type: none;
- 	
- }
- div{
- 	text-align: center;
- }
- button{
- 	
- 	
- 	width: 120px;
- 	border: none;
- 	
- 	margin:auto;
- 	font-size:16px;
-	margin: 4px 2px;
-	border : 1px solid rgba(159,220,120,1);
-	border-radius:5px;
-	background-color: #008CBA;
-	box-shadow: 3px 3px 0 #5492DB;
-	transition: all 0.5s;
- }
- button:hover {
- 	
-	font-size:16px;
-	margin: 4px 2px;
-	
-	border : 1px solid rgba(159,220,120,1);
-	border-radius:5px;
-	background-color: #008CBA;
-	box-shadow: 3px 3px 0 #5492DB;
-	transition: all 0.5s;
-}
-
-
-</style>
+  </style>
 </head>
+
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
-	<form action="login" method="post">
-	<fieldset>
-		<ul>
-			<legend><h2>로그인</h2></legend>
-			<li><label for="userId">아이디</label></li>
-			<li><input type="text" id="userId" name="userId" maxlength="20" required="required"></li>
-			<li><label for="userPwd">비밀번호</label></li>
-			<li><input type="password" id="userPwd" name="userPwd" maxlength="20" required="required"></li>
-		</ul>
-		<div>
-			<button type="submit" id="btnLogin">로그인</button>
-		</div>
-		</fieldset>
-	</form>
+<section>
+ <table>
+    <tr>
+        <th></th>
+        <th>작성일</th>
+        <th>수정일</th>
+        <th>조회수</th>
+        <th>글쓴이</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>${blist.bo_createDate}</td>
+        <td>${blist.bo_updateDate}</td>
+        <td>${blist.bo_postView}</td>
+        <td>${blist.bo_userNo}</td>
+    </tr>
+    <tr>
+        <th>제목</th>
+        <td>${blist.bo_postTitle}</td>
+    </tr>
+    <tr>
+        <th>이미지</th>
+        <!--todo 클릭하면 창이 보이되 이미지가 보이도록 바꾸어야함-->
+        <td><input type="file" name="" id="" value="첨부된 이미지가 없습니다."></td>
+    </tr>
+    <tr>
+        <th>내용</th>
+        <td>${blist.bo_postContent}</td>
+    </tr>
+    <tr>
+        <th>파일첨부</th>
+        <td><input type="file" name="" id="" value="첨부된 파일이 없습니다."></td>
+    </tr>
+
+   </table>
+</section>	
 <jsp:include page="../footer/footer.jsp" flush="true" />
+
 </body>
 </html>

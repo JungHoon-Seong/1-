@@ -53,6 +53,12 @@ public class BoardService {
 		return boardDao.updateBoard(bvo);
 	}
 
+
+	public void boardPostviewUpdate(int brno) {
+		boardDao.boardPostviewUpdate(brno);
+		
+	}
+
 	
 
 }

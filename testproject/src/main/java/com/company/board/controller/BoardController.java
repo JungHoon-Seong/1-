@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -126,6 +127,7 @@ public class BoardController {
 		
 		Member memberId= (Member)request.getSession().getAttribute("member");
 		
+		
 		List<Board> boardList = null;
 		try {
 			boardList = boardService.selectBoardView(brno);
@@ -135,7 +137,7 @@ public class BoardController {
 		}
 		
 		//todo 조회수 +1하는 기능 추가해야함
-		
+		boardService.boardPostviewUpdate(brno);
 		
 		mv.addObject("blist",boardList);
 		if(memberId != null) {
@@ -149,14 +151,15 @@ public class BoardController {
 	@RequestMapping(value="board_insert", method=RequestMethod.GET)
 	public String insertBoard() {
 		
-		return "./board/board_insert.jsp";
+		return "./board/board_insert";
 	}
 	
-	@RequestMapping(value="board-insert", method=RequestMethod.POST)
+	@PostMapping("board-insert")
+	//@RequestMapping(value="board-insert", method= {RequestMethod.POST})
 	public ModelAndView insertBoard(ModelAndView mv,@RequestParam(value="t" , defaultValue = "0")String title,
 			@RequestParam(value="c" , defaultValue = "0")String Content,
-			@RequestParam("image") MultipartFile image,
-			@RequestParam("file") MultipartFile file,
+			@RequestParam(value="image", required=false) MultipartFile image,
+			@RequestParam(value="file", required=false) MultipartFile file,
 			HttpServletRequest request
 			) {
 		
@@ -165,13 +168,13 @@ public class BoardController {
 		
 		String imgsrc = "";
 		String filesrc = "";
-		//이미지를 서버에 저장
-		imgsrc = googleCloudPlatformUpload(image);
+		//이미지를 서버에 저장 ftp로 바꿔야함
+		//imgsrc = googleCloudPlatformUpload(image);
 			if(imgsrc != null){
 					logger.info("이미지 저장주소: " + imgsrc);
 			}
-		//파일을 서버에 저장
-		filesrc = googleCloudPlatformUpload(file);
+		//파일을 서버에 저장 ftp로 바꿔야함
+		//filesrc = googleCloudPlatformUpload(file);
 			if(filesrc != null) {
 				logger.info("파일 저장주소: " + filesrc);
 			}
@@ -224,8 +227,8 @@ public class BoardController {
 	public ModelAndView updateBoard(ModelAndView mv, @RequestParam(value="t")String title,
 			@RequestParam(value="c") String content,
 			@RequestParam(value="no",defaultValue="0") int brno,
-			@RequestParam(value="image")MultipartFile image,
-			@RequestParam(value="files")MultipartFile file,
+			@RequestParam(value="image",required=false)MultipartFile image,
+			@RequestParam(value="files",required=false)MultipartFile file,
 			HttpServletRequest request) {
 		String viewPage = "";
 		int boardResult = 0;
@@ -233,13 +236,13 @@ public class BoardController {
 		
 		String imgsrc = "";
 		String filesrc = "";
-		//이미지를 서버에 저장
-		imgsrc = googleCloudPlatformUpload(image);
+		//이미지를 서버에 저장 ftp로 바꿔야함
+		//imgsrc = googleCloudPlatformUpload(image);
 			if(imgsrc != null){
 					logger.info("이미지 저장주소: " + imgsrc);
 			}
-		//파일을 서버에 저장
-		filesrc = googleCloudPlatformUpload(file);
+		//파일을 서버에 저장 ftp로 바꿔야함
+		//filesrc = googleCloudPlatformUpload(file);
 			if(filesrc != null) {
 				logger.info("파일 저장주소: " + filesrc);
 			}
@@ -281,24 +284,7 @@ public class BoardController {
 	}
 		
 		
-		public String googleCloudPlatformUpload(MultipartFile file) {
-			//reName 규칙 설정
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-	        int rdv = (int)(Math.random()*1000);
-	        String reName = sdf.format(System.currentTimeMillis())+"_"+rdv;
-
-			try {			
-				BlobInfo blobInfo = storage.create(
-					BlobInfo.newBuilder("apt_kh_team2", reName+file.getOriginalFilename()).build(), //get original file name
-					file.getBytes(), // the file
-					BlobTargetOption.predefinedAcl(PredefinedAcl.PUBLIC_READ) // Set file permission
-				);
-				return blobInfo.getMediaLink(); // Return file url
-			}catch(IllegalStateException | IOException e){
-				throw new RuntimeException(e);
-			} 
-			
-	  	}
+		
 	
 	
 

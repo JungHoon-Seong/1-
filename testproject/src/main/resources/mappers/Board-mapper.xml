@@ -53,13 +53,19 @@
 	]]>
 	</select>
 	
+	<update id="boardPostviewUpdate" parameterType="Board" statementType="PREPARED">
+		UPDATE board SET bo_postView = bo_postView + 1  WHERE BO_POSTNO= #{bo_postNo}
+	</update>
+	
 	<!-- 게시물 조회 쿼리문 끝-->
 	
-	<!-- 
+	
 	<insert id="insertContent" parameterType="Board" statementType="PREPARED">
-		INSERT INTO board VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
+		INSERT INTO board VALUES(SEQ_board_no.nextval, #{bo_userNo}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
 	</insert>
-	 -->
+	
+		
+	
 	<!-- insert all 사용 -->
 	<!-- 
 	<insert id="insertContentwithImg" parameterType="Board" statementType="PREPARED">

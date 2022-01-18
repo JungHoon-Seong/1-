@@ -6,24 +6,56 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="resources/img/favicon.png" rel="icon">
+  <link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="resources/vendor/animate.css/animate.min.css" rel="stylesheet" >
+  <link href="resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="resources/vendorremixiconremixicon.css" rel="stylesheet">
+  <link href="resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="resources/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Selecao - v4.7.0
+  * Template URL: https://bootstrapmade.com/selecao-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 <title>게시판- jqGrid 게시판 프로젝트</title>
 <link rel="stylesheet" type="text/css" href="${ctx }resources/css/ui.jqgrid.css"/>
 <script type="text/javascript" src="<c:url value='resources/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="../../../libs/js/jquery.jqGrid.min.js"></script>
 <style>
 
 section {
-	width: 1000px;
+	width: 1200px;
 	margin: auto;
 }
-
+span {
+	float: left;
+}
 table {
-	width: 400px;
+	width: 1200px;
 	border: 1px solid lightblue;
 	margin: auto;
 }
+
 div {
 	width: 500px;
 	margin: auto;
@@ -43,9 +75,67 @@ a {
 a:hover {
 
 }
+ footer {
+ 	clear: both;
+ }
+ 
+ td {
+ 	text-align: center;
+ }
+
+#btnWrite{
+	border: none;
+	border-radius: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #00b0f0;
+}
+#btnWriteBox{
+	width: 1200px;
+	float: right;
+}
+
+#btnUpdate{
+	border: none;
+	border-raduis: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-aling: center;
+	font-szie: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #00b0f0;
+}
+
+#btnDelete{
+	border: none;
+	 border-radius: 5px;
+	 color: white;
+	 padding: 10px 20px;
+	 text-align: center;
+	 font-size: 16px;
+	 margin: 4px 2px;
+	 cursor: pointer;
+	background-color: #ff0000;
+}
+#btnUpdateDeleteBox{
+	width: 1200px;
+	float: right;
+}
+button {
+	margin-left: 28px;
+}
+
+section {
+	margin-top: 200px;
+}
 </style>
 <script>
-
+<!-- 
 function makeTable(id,array){
 	$("#"+id).jqGrid({
 		datatype:"local",
@@ -70,14 +160,22 @@ function makeTable(id,array){
 		
 	}
 }
+
 makeTable('table1',dataArray);
+-->
 </script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
 <section>
+	<div id="btnUpdateDeleteBox">
+		<span></span>
+		<button type='button' id='btnUpdate' onclick=''>수정</button>
+	    <button type='button' id='btnDelete' onclick=''>삭제</button>
+    </div>
 <table>
 	<tr>
+		<th></th>
 		<th>No.</th>
 		<th>이미지</th>
 		<th>제목</th>
@@ -89,6 +187,7 @@ makeTable('table1',dataArray);
 	<c:if test="${blist != null }">
 		<c:forEach items="${blist}" var="vo">
 		<tr>
+			<td><input type="checkbox" name="selected" id="" onclick='checkOnlyOne(this)'></td>
 			<td>${vo.bo_postNo }</td>
 			<td><img src="${vo.bi_imgsrc }" class="img" onerror="" alt='' /> </td>
 			<td><a href="board-view?no=${vo.bo_postNo}" >${vo.bo_postTitle }</a> </td>
@@ -113,9 +212,29 @@ makeTable('table1',dataArray);
 		</ul>
 	</div>
 	
-	<table id="table1"></table>
+	<div id="btnWriteBox">
+		<span></span>
+    	<button type='button' id='btnWrite' onclick='btnWrite()'>글쓰기</button>
+	</div>
+	<!-- <table id="table1"></table> -->
 	
 </section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
+
+<script>
+	function btnWrite(){
+		location.href="./board_insert";
+	}
+	function checkOnlyOne(element) {
+		
+		const checkboxes = document.getElementsByName('selected');
+		
+		checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+	}
+</script>
 </body>
 </html>

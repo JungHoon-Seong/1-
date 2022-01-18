@@ -62,4 +62,8 @@ public class BoardDao {
 		return result;
 	}
 
+	public void boardPostviewUpdate(int brno) {
+		sqlSession.update("Board.boardPostviewUpdate", brno);		
+	}
+
 }

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
+<title>게시판 글쓰기</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -35,64 +36,108 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-<title>내용조회- jqGrid 게시판 프로젝트</title>
-
 <style>
 
+#btnWrite {
+	border: none;
+	border-raduis: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-aling: center;
+	font-szie: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #00b0f0;
+}
 
- footer {
- 	clear: both;
- }
- 
- section {
+#btnCancel {
+	border: none;
+	 border-radius: 5px;
+	 color: white;
+	 padding: 10px 20px;
+	 text-align: center;
+	 font-size: 16px;
+	 margin: 4px 2px;
+	 cursor: pointer;
+	background-color: #ff0000;
+}
+
+table{
+	width:1200px;
+	border: 1px solid black;
+	margin: auto;
+	border-collapse: collapse;
+}
+th {
+	width: 398px;
+	background-color: #ccc;
+}
+th,td {
+	border: 1px solid black;
+}
+td {
+	text-align: center;
+}
+input[type="text"] {
+	width: 800px;
+}
+	
+section {
+	width:1200px;
+	margin: auto;
+}
+button {
+	margin-left: 28px;
+}
+section {
 	margin-top: 200px;
 }
 </style>
+
 </head>
 <body>
-
 <jsp:include page="../header/header.jsp" flush="true" />
-
-
 <section>
-<table>
-	<c:forEach items="${blist}" var="vo">
-	<tr>
-		<th></th>
-		<th>작성일</th>
-		<th>수정일</th>
-		<th>조회수</th>
-		<th>글쓴이</th>
-	</tr>
-	<tr>
-		<td></td>
-		<td>${vo.bo_createDate }</td>
-		<td>${vo.bo_updateDate }</td>
-		<td>${vo.bo_postView }</td>
-		<!-- todo postNo를 글쓴이로 보이기 위해서 select문으로 member테이블과 조회를 해주어야한다. -->
-		<td>${vo.bo_postNo }</td>
-	</tr>
-	<tr>
-		<th>제목</th>
-		<td>${vo.bo_postTitle }</td>
-	</tr>
+<form action="board-insert" method="post" enctype="multipart/form-data">
+ <table>
+        <tr>
+            <th>제목</th>
+            <td>
+            	<input type="text" name="t" id="textTitle" placeholder="제목을 입력해주세요">
+            </td>
+        </tr>
+        <tr>
+            <th>이미지</th>
+            <td>
+                <input type="file" name="image" id="" value="첨부된 이미지가 없습니다."> 
+            </td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td>
+            	<input type="text" name="c" id="textContent" placeholder="내용을 입력해주세요">
+            </td>
+        </tr>
+        <tr>
+            <th>파일첨부</th>
+            <td>
+                <input type="file" name="file" id="" value="첨부된 파일이 없습니다."> 
+            </td>
+        </tr>
 	
-	<tr>
-		<th>이미지</th>
-		<td><img src="${vo.bi_imgsrc }"  class="img" onerror="" alt=''/></td>
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td>${vo.bo_postContent }</td>
-	</tr>
-	
-	<tr>
-		<th>파일첨부</th>
-		<td>${vo.bf_filesrc}</td>
-	</tr>
-	</c:forEach>
-</table>
+    </table>
+    <div id="btnBox">
+        <button type='button' id='btnCancel' onclick="btnCancel()">작성취소</button>
+        <button type='submit' id='btnWrite' onclick=''>등록</button>
+    </div>
+	</form>
 </section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
+<script>
+function btnCancel(){
+		window.history.go(-1);
+	}
+</script>
+
 </body>
 </html>
