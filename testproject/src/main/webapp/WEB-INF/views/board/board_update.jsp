@@ -41,13 +41,77 @@
   section {
 	margin-top: 200px;
 }
+#btnUpdate {
+	border: none;
+	border-raduis: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-aling: center;
+	font-szie: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #00b0f0;
+	
+}
+
+#btnUpdateCancel {
+	border: none;
+	border-radius: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #ff0000;
+	
+}
+
+th,td {
+	border: 1px solid black;
+	text-align: center;
+	
+}
+th {
+	width: 398px;
+	background-color: #ccc;
+}
+
+table {
+	width: 1000px;
+	border: 1px solid lightblue;
+	margin: auto;
+	border-collpase: collpase;
+}
+.mainText {
+	width: 100%;
+	
+}
+.mainTd {
+	width: 602px;
+}
+#btnBox {
+	width: 800px;
+	
+}
+
+ .readonlyHeader {
+ 	
+ 	border: none;
+ 	width: 100%;
+ 	text-align: center;
+ }
   </style>
+  
 </head>
 
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
 <section>
+<!-- enctype="multipart/form-data"  -->
+<form action="./board-update" method="post" >
  <table>
+ 	<c:forEach items="${blist}" var="vo">
     <tr>
         <th></th>
         <th>작성일</th>
@@ -56,31 +120,59 @@
         <th>글쓴이</th>
     </tr>
     <tr>
-        <td></td>
-        <td>${blist.bo_createDate}</td>
-        <td>${blist.bo_updateDate}</td>
-        <td>${blist.bo_postView}</td>
-        <td>${blist.bo_userNo}</td>
+        <td>
+        	<input type="text" class="readonlyHeader" name="no" value="${vo.bo_postNo }" readonly/>
+        </td>
+        <td>${vo.bo_createDate}</td>
+        <td>${vo.bo_updateDate}</td>
+        <td>${vo.bo_postView}</td>
+        <td>${vo.bo_userNo}</td>
     </tr>
     <tr>
         <th>제목</th>
-        <td>${blist.bo_postTitle}</td>
+        <td colspan="4" class="mainTd">
+        	<input type="text" name="t" class="mainText" value="${vo.bo_postTitle}" />
+        </td>
     </tr>
     <tr>
         <th>이미지</th>
         <!--todo 클릭하면 창이 보이되 이미지가 보이도록 바꾸어야함-->
-        <td><input type="file" name="" id="" value="첨부된 이미지가 없습니다."></td>
+        <td colspan="4" class="mainTd">
+        	<input type="file" name="image" class="mainText" value="첨부된 이미지가 없습니다.">
+        </td>
     </tr>
     <tr>
         <th>내용</th>
-        <td>${blist.bo_postContent}</td>
+        <td colspan="4" class="mainTd">
+        	<input type="text" name="c" class="mainText" value="${vo.bo_postContent}" />
+        </td>
     </tr>
     <tr>
         <th>파일첨부</th>
-        <td><input type="file" name="" id="" value="첨부된 파일이 없습니다."></td>
+        <td colspan="4" class="mainTd">
+        	<input type="file" name="file" class="mainText" value="첨부된 파일이 없습니다.">
+        </td>
     </tr>
+	</c:forEach>	
+	</table>
+   <div id="btnBox">
+		<!-- <button type="button" id="btnToList" onclick="btnToList()">목록</button> -->
+		<button type='button' id='btnUpdateCancel' onclick='btnUpdateCancel()'>수정취소</button>
+		<button type='submit' id='btnUpdate' onclick=''>수정완료</button>
+	</div>
+</form>
 
-   </table>
+	
+<script>
+   function btnToList(){
+		location.href="./board";
+	}
+   function btnUpdateCancel(){
+	   	window.history.go(-1);
+	}
+
+   
+</script>
 </section>	
 <jsp:include page="../footer/footer.jsp" flush="true" />
 

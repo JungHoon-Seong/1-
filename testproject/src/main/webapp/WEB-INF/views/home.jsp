@@ -97,27 +97,104 @@
 <title>jqGrid</title>
 <style>
 
-  section {
-	margin-top: 500px;
+ section {
+	margin-top: 25px;
 }
+#pager {
+	float: right;
+	border: 1px solid black;
+}
+#about {
+	clear: both;
+}
+
 </style>
 </head>
 <body>
 <jsp:include page="./header/header.jsp" flush="true" />
 <section>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+    <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+	<div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>jqGrid 게시판 프로젝트</span></h2>
+          <!-- <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+           -->
+        </div>
+   
+
+    </div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+  </section><!-- End Hero -->
+
      <!-- jqGrid 플러그인을 사하기위한 table 태그와 div태그 사용 -->
     <table id = "grid"></table>
-    <div id = "pager"></div>
+    <div id = "pager">
     
-    <c:if test="${memberId != null}" >
-		${memberId.mm_userId}님 환영합니다. <a href="./logout">로그아웃</a>
-	</c:if>
-	<!-- <input type="file" name="img"/> -->
-	<br>
-	<a href="./board">게시판으로 이동</a>
-	<br>
-	<a href="./jqgrid_list">jq테스트페이지로 이동</a>
+	    <c:if test="${memberId != null}" >
+			${memberId.mm_userId}님 환영합니다. <a href="./logout">로그아웃</a>
+		</c:if>
+		<!-- <input type="file" name="img"/> -->
+		<br>
+		<a href="./board">게시판으로 이동</a>
+		<br>
+		<a href="./jqgrid_list">jq테스트페이지로 이동</a>
+	</div>
+	
+	
+	
 </section>
+
+   <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>About</h2>
+          <p>Who we are</p>
+        </div>
+
+        <div class="row content" data-aos="fade-up">
+          <div class="col-lg-6">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+              <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <a href="#" class="btn-learn-more">Learn More</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
 <jsp:include page="./footer/footer.jsp" flush="true" />
 </body>
 </html>

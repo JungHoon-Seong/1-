@@ -14,7 +14,7 @@
 
 
 	<select id="login" resultMap="MemberMap" parameterType="Member">
-		SELECT mm_userid,mm_userpwd FROM member
+		SELECT mm_userid,mm_userpwd, mm_userNo FROM member
 		WHERE mm_userid = #{mm_userId} AND mm_userpwd = #{mm_userPwd} 
 	</select>
 	

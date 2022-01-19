@@ -47,6 +47,65 @@
  section {
 	margin-top: 200px;
 }
+th,td {
+	border: 1px solid black;
+	text-align: center;
+	
+}
+th {
+	width: 398px;
+	background-color: #ccc;
+}
+
+table {
+	width: 1000px;
+	border: 1px solid lightblue;
+	margin: auto;
+	border-collpase: collpase;
+}
+
+
+.mainText {
+	width: 800px;
+	
+}
+#btnUpdate{
+	float: right;
+	border: none;
+	border-raduis: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-aling: center;
+	font-szie: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #00b0f0;
+}
+
+#btnDelete{
+	float: right;
+	border: none;
+	 border-radius: 5px;
+	 color: white;
+	 padding: 10px 20px;
+	 text-align: center;
+	 font-size: 16px;
+	 margin: 4px 2px;
+	 cursor: pointer;
+	background-color: #ff0000;
+}
+#btnToList {
+	
+	border: none;
+	 border-radius: 5px;
+	 color: white;
+	 padding: 10px 20px;
+	 text-align: center;
+	 font-size: 16px;
+	 margin: 4px 2px;
+	 cursor: pointer;
+	background-color: #1abc9c;
+}
 </style>
 </head>
 <body>
@@ -74,24 +133,51 @@
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td>${vo.bo_postTitle }</td>
+		<td class="mainText" colspan="4">${vo.bo_postTitle }</td>
 	</tr>
 	
 	<tr>
 		<th>이미지</th>
-		<td><img src="${vo.bi_imgsrc }"  class="img" onerror="" alt=''/></td>
+		<td class="mainText" colspan="4"><img src="${vo.bi_imgsrc }"  class="img" onerror="" alt=''/></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td>${vo.bo_postContent }</td>
+		<td class="mainText" colspan="4">${vo.bo_postContent }</td>
 	</tr>
 	
 	<tr>
 		<th>파일첨부</th>
-		<td>${vo.bf_filesrc}</td>
+		<td class="mainText" colspan="4">${vo.bf_filesrc}</td>
 	</tr>
-	</c:forEach>
+	
+
+	
+	
 </table>
+<div id="btnBox">
+	<button type="button" id="btnToList" onclick="btnToList()">목록</button>
+	<button type='button' id='btnDelete' onclick='btnDelete()'>삭제</button>
+	<button type='button' id='btnUpdate' onclick='btnUpdate()'>수정</button>
+</div>
+	<script>
+function btnUpdate(){
+	location.href="./board-update?no=${vo.bo_postNo}"
+}
+
+
+function btnDelete(){
+	var confirmDelete = confirm("삭제하시겠습니까?")
+	
+	if(confirmDelete == true){
+		location.href="./board-delete?no=${vo.bo_postNo}"
+	}
+}
+function btnToList(){
+	location.href="./board";
+}
+
+</script>
+</c:forEach>
 </section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
 </body>

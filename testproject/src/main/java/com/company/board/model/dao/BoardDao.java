@@ -66,4 +66,13 @@ public class BoardDao {
 		sqlSession.update("Board.boardPostviewUpdate", brno);		
 	}
 
+	public int deleteBoard(int brno) {
+		int result = 0;
+		result = sqlSession.delete("Board.deleteBoard",brno);
+		if(result == 0) {
+			System.out.println("dao단 오류 발생");
+		}
+		return result;
+	}
+
 }

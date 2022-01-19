@@ -53,6 +53,7 @@ public class MemberController {
 			if(loginResult != null) {
 				
 				session.setAttribute("member", loginResult);
+				//session.setAttribute("member", id);
 				
 				//out.println("<script>alert('로그인에 성공하였습니다.'); </script>");
 				logger.info("로그인 성공");

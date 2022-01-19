@@ -104,6 +104,7 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		mv.addObject("blist",blist);
 		mv.addObject("currentPage",currentPage);
 		mv.addObject("pageCount",pageCount);
@@ -136,7 +137,7 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		//todo 조회수 +1하는 기능 추가해야함
+		
 		boardService.boardPostviewUpdate(brno);
 		
 		mv.addObject("blist",boardList);
@@ -148,16 +149,16 @@ public class BoardController {
 		return mv;
 	}
 	
-	@RequestMapping(value="board_insert", method=RequestMethod.GET)
+	@RequestMapping(value="board-insert", method=RequestMethod.GET)
 	public String insertBoard() {
 		
 		return "./board/board_insert";
 	}
 	
-	@PostMapping("board-insert")
-	//@RequestMapping(value="board-insert", method= {RequestMethod.POST})
-	public ModelAndView insertBoard(ModelAndView mv,@RequestParam(value="t" , defaultValue = "0")String title,
-			@RequestParam(value="c" , defaultValue = "0")String Content,
+	//@PostMapping("board-insert")
+	@RequestMapping(value="board-insert", method= {RequestMethod.POST})
+	public ModelAndView insertBoard(ModelAndView mv,@RequestParam(value="t")String title,
+			@RequestParam(value="c" )String Content,
 			@RequestParam(value="image", required=false) MultipartFile image,
 			@RequestParam(value="file", required=false) MultipartFile file,
 			HttpServletRequest request
@@ -171,7 +172,7 @@ public class BoardController {
 		//이미지를 서버에 저장 ftp로 바꿔야함
 		//imgsrc = googleCloudPlatformUpload(image);
 			if(imgsrc != null){
-					logger.info("이미지 저장주소: " + imgsrc);
+				logger.info("이미지 저장주소: " + imgsrc);
 			}
 		//파일을 서버에 저장 ftp로 바꿔야함
 		//filesrc = googleCloudPlatformUpload(file);
@@ -179,16 +180,21 @@ public class BoardController {
 				logger.info("파일 저장주소: " + filesrc);
 			}
 		
-		Member member = (Member)request.getSession().getAttribute("member");
-		String userId = member.getMm_userId();
+		Member member =  (Member)request.getSession().getAttribute("member");
+		//int member = (((Member)request.getSession().getAttribute("member"));
+		int userNo =  member.getMm_userNo() ;
+		System.out.println("userNo는:" + member.getMm_userNo());
+		
 		
 		
 		if( (image == null) && (file == null) ) {
-			Board bvo = new Board(userId,title,Content);
-			boardResult = boardService.insertBoardwithImg(bvo);
-		}else {
-			Board bvo = new Board(userId,title,Content,imgsrc,filesrc);
+			//이미지없을 경우
+			Board bvo = new Board(userNo,title,Content);
 			boardResult = boardService.insertBoard(bvo);
+		}else {
+			//이미지나 파일있을 경우
+			Board bvo = new Board(userNo,title,Content,imgsrc,filesrc);
+			boardResult = boardService.insertBoardwithImg(bvo);
 		}
 		
 		if(boardResult == 0) {
@@ -217,7 +223,7 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		mv.addObject("boardList",boardList);
+		mv.addObject("blist",boardList);
 		mv.setViewName(viewPage);
 		
 		return mv;
@@ -246,13 +252,14 @@ public class BoardController {
 			if(filesrc != null) {
 				logger.info("파일 저장주소: " + filesrc);
 			}
-				
+			
+			System.out.println("게시물번호 확인 !!!!!!!!!!!!!!!!!!!" + brno);
 		if( (image == null) && (file == null) )
 		{
-			Board bvo = new Board( title, content);
+			Board bvo = new Board( title, content , brno);
 			boardResult = boardService.updateBoard(bvo);
 		}else {
-			Board bvo = new Board(title, content,imgsrc,filesrc);
+			Board bvo = new Board(title, content,imgsrc,filesrc , brno);
 			boardResult = boardService.updateBoard(bvo);
 		}
 		
@@ -260,15 +267,24 @@ public class BoardController {
 			logger.error("업데이트 실패");
 		}else {
 			logger.info("업데이트 성공");
+			
 		}
-				
+		viewPage= "redirect: ./board";	
 		
 		mv.addObject("result", boardResult);
 		mv.setViewName(viewPage);
 		return mv;
 	}
 	
-	
+	@RequestMapping(value="board-delete", method = RequestMethod.GET )
+	public String deleteBoard(ModelAndView mv, @RequestParam(value="no", defaultValue= "0") int brno) {
+		
+		Board bvo = new Board(brno);
+		boardService.deleteBoard(brno);
+		
+		
+		return "redirect: ./board";
+	}
 	
 	
 	

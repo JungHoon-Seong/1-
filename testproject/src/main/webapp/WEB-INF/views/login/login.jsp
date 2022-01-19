@@ -77,12 +77,17 @@ fieldset {
 	box-shadow: 3px 3px 0 #5492DB;
 	transition: all 0.5s;
 }
+ section {
+	margin-top: 200px;
+}
 
 
 </style>
 </head>
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
+
+<section>
 	<form action="login" method="post">
 	<fieldset>
 		<ul>
@@ -97,6 +102,7 @@ fieldset {
 		</div>
 		</fieldset>
 	</form>
+</section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
 </body>
 </html>

@@ -20,7 +20,7 @@ public class Board {
 
 	private int bo_postNo;
 	private String bo_userId;
-	private String bo_userNo;
+	private int bo_userNo;
 	private String bo_postTitle;
 	private String bo_postContent;
 	private int bo_postView;
@@ -64,6 +64,45 @@ public class Board {
 	}
 	
 	
+	public Board(int userNo, String title, String content) {
+		this.bo_userNo = userNo;
+		this.bo_postTitle = title;
+		this.bo_postContent = content;
+		
+	}
+
+
+	public Board(int userNo, String title, String content, String imgsrc, String filesrc) {
+		this.bo_userNo = userNo;
+		this.bo_postTitle = title;
+		this.bo_postContent = content;
+		this.bi_imgsrc = imgsrc;
+		this.bf_filesrc = filesrc;
+	}
+
+	
+	public Board(int brno) {
+		this.bo_postNo = brno;
+	}
+
+
+	public Board(String title, String content, int brno) {
+		this.bo_postTitle = title;
+		this.bo_postContent = content;
+		this.bo_postNo = brno;
+	}
+
+
+	public Board(String title, String content, String imgsrc, String filesrc, int brno) {
+		this.bo_postTitle = title;
+		this.bo_postContent = content;
+		this.bi_imgsrc = imgsrc;
+		this.bf_filesrc = filesrc;
+		this.bo_postNo = brno;
+		
+	}
+
+
 	@Override
 	public String toString() {
 		return "Board [bo_postNo=" + bo_postNo + ", bo_userId=" + bo_userId + ", bo_userNo=" + bo_userNo
@@ -92,12 +131,12 @@ public class Board {
 	}
 
 
-	public String getBo_userNo() {
+	public int getBo_userNo() {
 		return bo_userNo;
 	}
 
 
-	public void setBo_userNo(String bo_userNo) {
+	public void setBo_userNo(int bo_userNo) {
 		this.bo_userNo = bo_userNo;
 	}
 

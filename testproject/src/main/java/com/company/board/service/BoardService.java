@@ -59,6 +59,11 @@ public class BoardService {
 		
 	}
 
+	public void deleteBoard(int brno) {
+		boardDao.deleteBoard(brno);
+		
+	}
+
 	
 
 }

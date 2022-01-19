@@ -62,8 +62,10 @@
 	background-color: #ff0000;
 }
 
+
+
 table{
-	width:1200px;
+	width:1000px;
 	border: 1px solid black;
 	margin: auto;
 	border-collapse: collapse;
@@ -79,11 +81,14 @@ td {
 	text-align: center;
 }
 input[type="text"] {
+	width: 100%;
+}
+#textContent {
 	width: 800px;
 }
 	
 section {
-	width:1200px;
+	width:1000px;
 	margin: auto;
 }
 button {
@@ -98,12 +103,13 @@ section {
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
 <section>
-<form action="board-insert" method="post" enctype="multipart/form-data">
+	
  <table>
+ 	<form action="./board-insert" method="post" >
         <tr>
             <th>제목</th>
             <td>
-            	<input type="text" name="t" id="textTitle" placeholder="제목을 입력해주세요">
+            	<input type="text" name="t" id="textTitle" placeholder="제목을 입력해주세요"/>
             </td>
         </tr>
         <tr>
@@ -115,7 +121,7 @@ section {
         <tr>
             <th>내용</th>
             <td>
-            	<input type="text" name="c" id="textContent" placeholder="내용을 입력해주세요">
+            	<textarea name="c" id="textContent" placeholder="내용을 입력해주세요"></textarea>
             </td>
         </tr>
         <tr>
@@ -126,10 +132,12 @@ section {
         </tr>
 	
     </table>
-    <div id="btnBox">
-        <button type='button' id='btnCancel' onclick="btnCancel()">작성취소</button>
-        <button type='submit' id='btnWrite' onclick=''>등록</button>
-    </div>
+    	
+	    <div id="btnBox">
+	    	
+	        <button type='button' id='btnCancel' onclick="btnCancel()">작성취소</button>
+	        <button type='submit' id='btnWrite' onclick=''>등록</button>
+	    </div>
 	</form>
 </section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
@@ -137,6 +145,8 @@ section {
 function btnCancel(){
 		window.history.go(-1);
 	}
+
+
 </script>
 
 </body>

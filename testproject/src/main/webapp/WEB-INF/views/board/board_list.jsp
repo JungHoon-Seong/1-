@@ -44,29 +44,39 @@
 <style>
 
 section {
-	width: 1200px;
+	width: 1000px;
 	margin: auto;
 }
 span {
 	float: left;
 }
 table {
-	width: 1200px;
+	width: 1000px;
 	border: 1px solid lightblue;
+	margin: auto;
+	border-collpase: collpase;
+}
+
+#paging {
+	width: 1000px;
+	
+}	
+.pagination {
+	clear: both;
+	text-align: center;
 	margin: auto;
 }
 
-div {
-	width: 500px;
-	margin: auto;
-}	
 ul {
 	width: 395px;
-	list-style-type: none;	
+	list-style-type: none;
+	margin: auto;	
+	text-align: center;
 }
 li {
 	float: left;
-	margin-left: 5px; 
+	margin: auto;
+	
 }
 
 a {
@@ -79,11 +89,11 @@ a:hover {
  	clear: both;
  }
  
- td {
+ th,td {
  	text-align: center;
  }
 
-#btnWrite{
+#btnWrite {
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -94,12 +104,12 @@ a:hover {
 	cursor: pointer;
 	background-color: #00b0f0;
 }
-#btnWriteBox{
-	width: 1200px;
+#btnWriteBox {
+	width: 1000px;
 	float: right;
 }
 
-#btnUpdate{
+#btnUpdate {
 	border: none;
 	border-raduis: 5px;
 	color: white;
@@ -111,7 +121,7 @@ a:hover {
 	background-color: #00b0f0;
 }
 
-#btnDelete{
+#btnDelete {
 	border: none;
 	 border-radius: 5px;
 	 color: white;
@@ -122,8 +132,11 @@ a:hover {
 	 cursor: pointer;
 	background-color: #ff0000;
 }
-#btnUpdateDeleteBox{
-	width: 1200px;
+#btnUpdateDeleteBox {
+	width: 1000px;
+	
+}
+.btnUpdateDeleteBox {
 	float: right;
 }
 button {
@@ -170,12 +183,12 @@ makeTable('table1',dataArray);
 <section>
 	<div id="btnUpdateDeleteBox">
 		<span></span>
-		<button type='button' id='btnUpdate' onclick=''>수정</button>
-	    <button type='button' id='btnDelete' onclick=''>삭제</button>
+		<button type='button' id='btnUpdate' onclick='' class="btnUpdateDeleteBox">수정</button>
+	    <button type='button' id='btnDelete' onclick='' class="btnUpdateDeleteBox">삭제</button>
     </div>
 <table>
 	<tr>
-		<th></th>
+		<th> </th>
 		<th>No.</th>
 		<th>이미지</th>
 		<th>제목</th>
@@ -191,7 +204,7 @@ makeTable('table1',dataArray);
 			<td>${vo.bo_postNo }</td>
 			<td><img src="${vo.bi_imgsrc }" class="img" onerror="" alt='' /> </td>
 			<td><a href="board-view?no=${vo.bo_postNo}" >${vo.bo_postTitle }</a> </td>
-			<td>${vo.bo_userId }</td>
+			<td>${vo.bo_userNo }</td>
 			<td>${vo.bo_postView }</td>
 			<td>${vo.bo_createDate }</td>
 			<td>${vo.bo_updateDate }</td>
@@ -223,7 +236,7 @@ makeTable('table1',dataArray);
 
 <script>
 	function btnWrite(){
-		location.href="./board_insert";
+		location.href="./board-insert";
 	}
 	function checkOnlyOne(element) {
 		

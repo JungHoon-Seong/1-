@@ -20,6 +20,7 @@ public class MemberDao {
 			
 		}else if(login != null) {
 			loginResult = 1;
+			
 		}
 		
 		return login;

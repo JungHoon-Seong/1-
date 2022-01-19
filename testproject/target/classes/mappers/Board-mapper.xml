@@ -53,6 +53,16 @@
 	]]>
 	</select>
 	
+	<!-- 
+	<select id="selectUserId" resuletMap="BoardMap">
+	select mm_userId 
+		from member 
+					left outer join board 
+									ON (mm_userNo = #{bo_postNo})
+	</select>
+	-->
+									
+	
 	<update id="boardPostviewUpdate" parameterType="Board" statementType="PREPARED">
 		UPDATE board SET bo_postView = bo_postView + 1  WHERE BO_POSTNO= #{bo_postNo}
 	</update>
@@ -73,21 +83,22 @@
 		INTO BOARD VALUES(SEQ_board_no.nextval, #{mm_userId}, #{bo_postTitle}, #{bo_postContent}, 0, SYSDATE, SYSDATE)
 		INTO BOARD_IMAGE VALUES(SEQ_boardImage_no.nextval, SEQ_board_no.currval  ,#{mm_userId}, #{bi_imgsrc}, #{bi_filesrc})
 	</insert>
-	
-	<update id="updateContent" parameterMap="Board" statementType="PREPARED">
-		UPDATE BOARD SET bo_postitle = #{bo_postTitle}, bo_postContent = #{bo_postContent} WHERE BO_POSTNO = #{bo_postNo}
+	-->
+	<update id="updateContent" parameterType="Board" statementType="PREPARED">
+		UPDATE BOARD SET bo_postTitle = #{bo_postTitle}, bo_postContent = #{bo_postContent} WHERE BO_POSTNO = #{bo_postNo}
 	</update>
-	 -->
+	 
 	<!-- update all 사용 -->
 	<!-- 
-	<update id="updateContentwithImg" parameterMap="Board" statementType="PREPARED">
+	<update id="updateContentwithImg" parameterType="Board" statementType="PREPARED">
 		UPDATE BOARD SET bo_postitle = #{}, WHERE BO_POSTNO = #{bo_posstNo};
 	</update>
+	-->
 	
-	<delete id="deleteContent" parameterType="Board" statementType="PREPARED">
+	<delete id="deleteBoard" parameterType="Board" statementType="PREPARED">
 		DELETE FROM BOARD WHERE bo_postNo = #{bo_postNo}
 	</delete>
-	  -->
+	
 	
 	
 	
