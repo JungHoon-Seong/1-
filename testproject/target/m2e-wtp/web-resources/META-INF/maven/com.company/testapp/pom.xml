@@ -167,6 +167,15 @@
 		    <artifactId>google-cloud-storage</artifactId>
 		    <version>1.14.0</version>
 		</dependency>
+		
+		<!-- jQgrid에게 값을 반환하기 위해 gson을 추가 22.01.19 -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.5</version>
+		</dependency>
+		
 	
 		<!-- Test -->
 		<dependency>

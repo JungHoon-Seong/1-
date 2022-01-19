@@ -40,7 +40,30 @@
 <script type="text/javascript" src="<c:url value='resources/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-<script src="../../../libs/js/jquery.jqGrid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/ui.jqgrid.css"/>
+
+
+<script type="text/javascript" src="resources/js/common/jquery.js"></script>
+<script type="text/javascript" src="resources/js/common/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="resources/js/common/i18n/grid.locale-kr.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://trirand.com/blog/jqgrid/themes/redmond/jquery-ui-custom.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://trirand.com/blog/jqgrid/themes/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://trirand.com/blog/jqgrid/themes/ui.multiselect.css" />	
+<script src="http://trirand.com/blog/jqgrid/js/jquery.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/jquery-ui-custom.min.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/jquery.layout.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/ui.multiselect.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/jquery.jqGrid.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/jquery.tablednd.js" type="text/javascript"></script>
+<script src="http://trirand.com/blog/jqgrid/js/jquery.contextmenu.js" type="text/javascript"></script>
 <style>
 
 section {
@@ -147,36 +170,10 @@ section {
 	margin-top: 200px;
 }
 </style>
-<script>
-<!-- 
-function makeTable(id,array){
-	$("#"+id).jqGrid({
-		datatype:"local",
-		height:250,
-		width: 630,
-		colNames:['글번호','이미지','제목','글쓴이','조회수','작성일','수정일'],
-		colModel:[
-			{name:'bo_postNo',align:'right'},
-			{},
-			{name:'bo_postTitle',align:'right'},
-			{name:'bo_userId',align:'right'},
-			{name:'bo_postTitle',align:'right'},
-			{name:'bo_createDate',align:'right'},
-			{name:'bo_updateDate',align:'right'}
-		],
-		caption:"게시판 데이터"
-		
-	});
-	
-	for(var I in array){
-		$("#"+id).jqGrid('addRowData',i+1,array[i]);
-		
-	}
-}
 
-makeTable('table1',dataArray);
--->
-</script>
+
+
+
 </head>
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
@@ -225,16 +222,61 @@ makeTable('table1',dataArray);
 		</ul>
 	</div>
 	
-	<div id="btnWriteBox">
+	
+	
+<!-- jqgrid 데모 -->
+<table id="jsonmap"></table>
+<div id="pjmap"></div>
+	
+<div id="btnWriteBox">
 		<span></span>
     	<button type='button' id='btnWrite' onclick='btnWrite()'>글쓰기</button>
 	</div>
-	<!-- <table id="table1"></table> -->
-	
 </section>
+
+
 <jsp:include page="../footer/footer.jsp" flush="true" />
 
 <script>
+
+	
+	var GSON = ${GSON};
+	console.log(GSON);
+
+	$(document).ready(function(){
+		jQuery("#jsonmap").jqGrid({        
+		   	url:'board',
+		   	data: GSON,
+			datatype: "json",
+			mtype: "GET",
+		   	colNames:[' ','이미지', '제목', '글쓴이','조회수','작성일','수정일'],
+		   	colModel:[
+		   		{name:' ',index:'id', width:55},
+		   		{name:'bi_imgsrc',index:'imgsrc', width:90, jsonmap:"invdate"},
+		   		{name:'bo_postTitle',index:'postTitle', width:100},
+		   		{name:'bo_userNo',index:'bo_userNo', width:80, align:"right"},
+		   		{name:'bo_postView',index:'postView', width:80, align:"right"},		
+		   		{name:'bo_createDate',index:'createDate', width:80,align:"right"},		
+		   		{name:'bo_updateDate',index:'updateDate', width:150, sortable:false}		
+		   	],
+		   	rowNum:5,
+		   	rowList:[5,10,15,20],
+		   	pager: '#pjmap',
+		   	 
+		   	width: 990,
+		   	sortname: 'createDate',
+		    viewrecords: true,
+		    sortorder: "desc",
+			jsonReader: {
+				repeatitems : false,
+				id: "0"
+			},
+			caption: "게시판",
+			height: '200'
+		});
+		jQuery("#jsonmap").jqGrid('navGrid','#pjmap',{edit:false,add:false,del:false});
+	});
+	
 	function btnWrite(){
 		location.href="./board-insert";
 	}

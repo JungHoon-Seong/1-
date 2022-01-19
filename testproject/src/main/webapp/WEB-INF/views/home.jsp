@@ -39,8 +39,8 @@
  
 <!-- <script type="text/javascript" src="/resource/js/common/jquery/jquery-3.2.1.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
-<script src="resources/jqGrid_4.4.3/js/i18n/grid.locale-kr.js" type="text/javascript"></script>
-<script src="resources/jqGrid_4.4.3/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+
 
  
 <script>
@@ -155,7 +155,7 @@
 		<br>
 		<a href="./board">게시판으로 이동</a>
 		<br>
-		<a href="./jqgrid_list">jq테스트페이지로 이동</a>
+		<!-- <a href="./jqgrid_list">jq테스트페이지로 이동</a> -->
 	</div>
 	
 	

@@ -1,6 +1,7 @@
 package com.company.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import com.google.api.client.util.Value;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.google.gson.Gson;
 import com.google.cloud.storage.Storage.BlobTargetOption;
 import com.google.cloud.storage.Storage.PredefinedAcl;
 
@@ -49,7 +51,7 @@ public class BoardController {
 	public ModelAndView selectBoardList(ModelAndView mv,String clickedPage, 
 			@RequestParam(value = "p", defaultValue = "1")String pageNum,
 			HttpServletRequest request,
-			HttpServletResponse response) throws Exception{
+			HttpServletResponse response) throws IOException{
 		
 		
 		logger.info("게시물 페이지에 온걸 환영하는 logger");
@@ -117,6 +119,16 @@ public class BoardController {
 		//System.out.println("컨트롤러 마지막접근");
 		mv.setViewName("/board/board_list");
 		
+		String gson = new Gson().toJson(blist);
+		
+		//System.out.println("컨트롤러단에서 gson반환값!!!!!!!!!!!!!!!!!!!" + gson);
+		mv.addObject("GSON", gson);
+		//PrintWriter out = response.getWriter();
+		//out.write(gson);
+//		//out.write(gson);
+		//out.flush();
+		//out.close();
+		
 		return mv;
 	}
 	
@@ -145,6 +157,8 @@ public class BoardController {
 			mv.addObject("memberId", memberId.getMm_userId());
 		}
 		mv.setViewName(viewPage);
+		
+		
 		
 		return mv;
 	}
@@ -253,7 +267,7 @@ public class BoardController {
 				logger.info("파일 저장주소: " + filesrc);
 			}
 			
-			System.out.println("게시물번호 확인 !!!!!!!!!!!!!!!!!!!" + brno);
+			
 		if( (image == null) && (file == null) )
 		{
 			Board bvo = new Board( title, content , brno);
