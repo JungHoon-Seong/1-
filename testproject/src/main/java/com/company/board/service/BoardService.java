@@ -64,6 +64,10 @@ public class BoardService {
 		
 	}
 
+	public List<Board> selectBoardListAll() {
+		return boardDao.selectBoardListAll();
+	}
+
 	
 
 }

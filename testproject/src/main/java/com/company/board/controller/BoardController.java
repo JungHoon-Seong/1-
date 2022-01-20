@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -113,23 +116,105 @@ public class BoardController {
 		mv.addObject("startPage",startPage);
 		mv.addObject("endPage",endPage);
 		mv.addObject("maxPage",maxPage);
-//		if (memberId != null) {
-//			mv.addObject("memberId",memberId.getHouseNum());
-//		}
+
 		//System.out.println("컨트롤러 마지막접근");
 		mv.setViewName("/board/board_list");
 		
 		String gson = new Gson().toJson(blist);
 		
-		//System.out.println("컨트롤러단에서 gson반환값!!!!!!!!!!!!!!!!!!!" + gson);
-		mv.addObject("GSON", gson);
-		//PrintWriter out = response.getWriter();
-		//out.write(gson);
-//		//out.write(gson);
-		//out.flush();
-		//out.close();
+//		System.out.println("컨트롤러단에서 gson반환값!!!!!!!!!!!!!!!!!!!" + gson);
+//		mv.addObject("GSON", gson);
+//		PrintWriter out = response.getWriter();
+////		out.print(gson);
+//		out.write(gson);
+//		out.flush();
+//		out.close();
 		
 		return mv;
+	}
+	
+	@RequestMapping(value= "board", method = RequestMethod.POST)
+	public void jqGridTest(ModelAndView mv,String clickedPage, 
+			@RequestParam(value = "p", defaultValue = "1")String pageNum,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		
+		
+			final int PAGE_SIZE = 5;
+			final int PAGE_BLOCK = 3;
+			int currentPage = 1;
+			int listCount = 0;
+			int pageCount = 0;
+			try {
+				listCount = boardService.getListCount();
+				
+				
+			} catch (Exception e) {
+				mv.addObject("msg", "게시판 오류발생");
+				mv.addObject("url", "index");
+				e.printStackTrace();
+			}
+			
+			if (pageNum != null) {
+				clickedPage = pageNum;
+			}
+			
+			int startPage = ((int)((double)currentPage / PAGE_SIZE + 0.9) - 1) * PAGE_SIZE  + 1;
+			
+			pageCount = (listCount / PAGE_SIZE) + (listCount % PAGE_SIZE == 0 ? 0 : 1);
+			
+			int endPage = startPage + PAGE_SIZE - 1;
+			if(endPage > pageCount) endPage=pageCount;
+			int maxPage = (int)((double)listCount / PAGE_SIZE + 0.9);
+			if (clickedPage != null) {
+				if (Integer.parseInt(clickedPage) <= 0) {
+					currentPage = 1;
+				} else if(Integer.parseInt(clickedPage) > maxPage){
+					currentPage = maxPage;
+				}else {
+					currentPage = Integer.parseInt(clickedPage);
+				}
+			}
+			
+			if (currentPage % PAGE_BLOCK == 0) {
+				startPage = (currentPage / PAGE_BLOCK - 1) * PAGE_BLOCK + 1;
+			}else {
+				startPage = (currentPage / PAGE_BLOCK) * PAGE_BLOCK + 1;
+			}
+			
+			
+			List<Board> blist = null;
+					
+			try {
+				blist = boardService.selectBoardListAll();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			mv.addObject("blist",blist);
+			mv.addObject("currentPage",currentPage);
+			mv.addObject("pageCount",pageCount);
+			mv.addObject("startPage",startPage);
+			mv.addObject("endPage",endPage);
+			mv.addObject("maxPage",maxPage);
+//			if (member != null) {
+//				mv.addObject("member",memberId.getHouseNum());
+//			}
+			//System.out.println("컨트롤러 마지막접근");
+			mv.setViewName("/board/board_list");
+			
+			String gson = new Gson().toJson(blist);
+			
+//			System.out.println("컨트롤러단에서 gson반환값!!!!!!!!!!!!!!!!!!!" + gson);
+			mv.addObject("GSON", gson);
+			PrintWriter out = response.getWriter();
+//			out.print(gson);
+			out.write(gson);
+			out.flush();
+			out.close();
+			
+			
 	}
 	
 	
@@ -138,7 +223,7 @@ public class BoardController {
 			HttpServletRequest request) {
 		String viewPage = "";
 		
-		Member memberId= (Member)request.getSession().getAttribute("member");
+		//Member member= (Member)request.getSession().getAttribute("member");
 		
 		
 		List<Board> boardList = null;
@@ -153,9 +238,9 @@ public class BoardController {
 		boardService.boardPostviewUpdate(brno);
 		
 		mv.addObject("blist",boardList);
-		if(memberId != null) {
-			mv.addObject("memberId", memberId.getMm_userId());
-		}
+//		if(member != null) {
+//			mv.addObject("member", member.getMm_userId());
+//		}
 		mv.setViewName(viewPage);
 		
 		

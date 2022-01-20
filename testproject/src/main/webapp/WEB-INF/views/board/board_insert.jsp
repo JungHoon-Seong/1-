@@ -40,11 +40,11 @@
 
 #btnWrite {
 	border: none;
-	border-raduis: 5px;
+	border-radius: 5px;
 	color: white;
 	padding: 10px 20px;
-	text-aling: center;
-	font-szie: 16px;
+	text-align: center;
+	 font-size: 16px;
 	margin: 4px 2px;
 	cursor: pointer;
 	background-color: #00b0f0;
@@ -52,16 +52,19 @@
 
 #btnCancel {
 	border: none;
-	 border-radius: 5px;
-	 color: white;
-	 padding: 10px 20px;
-	 text-align: center;
-	 font-size: 16px;
-	 margin: 4px 2px;
-	 cursor: pointer;
+	border-radius: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
 	background-color: #ff0000;
 }
 
+#btnBox {
+	text-align: right;
+}
 
 
 table{
@@ -97,8 +100,23 @@ button {
 section {
 	margin-top: 200px;
 }
-</style>
 
+#idText {
+	color: #fff;
+	font-size: 14px;
+}
+
+</style>
+<script>
+function functionCancel(){
+var varCancel = confirm("해당글의 작성을 취소하시겠습니까?")
+	
+	if(varCancel == true){
+		window.history.go(-1);
+		}
+	}
+
+</script>
 </head>
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
@@ -134,20 +152,13 @@ section {
     </table>
     	
 	    <div id="btnBox">
-	    	
-	        <button type='button' id='btnCancel' onclick="btnCancel()">작성취소</button>
+	        <button type='button' id='btnCancel' onclick='functionCancel()'>작성취소</button>
 	        <button type='submit' id='btnWrite' onclick=''>등록</button>
 	    </div>
 	</form>
 </section>
 <jsp:include page="../footer/footer.jsp" flush="true" />
-<script>
-function btnCancel(){
-		window.history.go(-1);
-	}
 
-
-</script>
 
 </body>
 </html>

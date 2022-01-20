@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -90,12 +91,57 @@ public class MemberController {
 		mv.setViewName(viewName);
 		return mv;
 	} */
-	@RequestMapping("logout")
+	@RequestMapping(value="logout", method=RequestMethod.GET)
 	public ModelAndView logout(ModelAndView mv, HttpSession session) {
 		String viewName = "";
 		session.invalidate();
 		viewName ="home";
 		mv.setViewName(viewName);
+		return mv;
+	}
+	
+	@RequestMapping(value="userjoin", method = RequestMethod.GET)
+	public ModelAndView userEnrollment(ModelAndView mv)  {
+		
+		mv.setViewName("/enrollment/enrollment");
+		return mv;
+	}
+	
+	@RequestMapping(value="userjoin", method = RequestMethod.POST)
+	public ModelAndView userEnrollment(ModelAndView mv, 
+			@RequestParam(value="id") String id,
+			@RequestParam(value="password") String password,
+			@RequestParam(value="email") String email,
+			@RequestParam(value="tel") String tel,
+			@RequestParam(value="achk") char achk,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		Member vo = new Member(id,password,email, tel, achk);
+		
+		try {
+			int result = 0;
+			result = memberSerivce.userjoin(vo);
+			
+			if(result == 1) {
+				
+				response.setContentType("text/html; charset=UTF-8");
+				 
+				PrintWriter out = response.getWriter();
+				 
+				out.println("<script>alert('회원가입에 성공하였습니다.'); location.href='./login';</script>");
+				logger.info("회원가입 성공");
+			}else if(result == 0) {
+				logger.warn("회원가입 실패");
+			}else {
+				logger.warn("회원 가입중 알 수 없는 결과 발생");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.setViewName("redirect:/login");
 		return mv;
 	}
 }

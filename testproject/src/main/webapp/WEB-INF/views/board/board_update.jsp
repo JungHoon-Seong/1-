@@ -43,11 +43,11 @@
 }
 #btnUpdate {
 	border: none;
-	border-raduis: 5px;
+	border-radius: 5px;
 	color: white;
 	padding: 10px 20px;
-	text-aling: center;
-	font-szie: 16px;
+	text-align: center;
+	font-size: 16px;
 	margin: 4px 2px;
 	cursor: pointer;
 	background-color: #00b0f0;
@@ -91,7 +91,10 @@ table {
 	width: 602px;
 }
 #btnBox {
-	width: 800px;
+	width: 980px;
+	margin: auto;
+	text-align: right;
+	
 	
 }
 
@@ -101,8 +104,23 @@ table {
  	width: 100%;
  	text-align: center;
  }
+ 
+ #idText {
+	color: #fff;
+	font-size: 14px;
+}
+ 
   </style>
-  
+ <script>
+   function btnToList(){
+		location.href="./board";
+	}
+   
+   function btnUpdateCancel(){
+	   	window.history.go(-1);
+	}
+   
+</script>
 </head>
 
 <body>
@@ -157,22 +175,13 @@ table {
 	</table>
    <div id="btnBox">
 		<!-- <button type="button" id="btnToList" onclick="btnToList()">목록</button> -->
-		<button type='button' id='btnUpdateCancel' onclick='btnUpdateCancel()'>수정취소</button>
+		<button type='button' id='btnUpdateCancel' onclick='history.go(-1)'>수정취소</button>
 		<button type='submit' id='btnUpdate' onclick=''>수정완료</button>
 	</div>
 </form>
 
 	
-<script>
-   function btnToList(){
-		location.href="./board";
-	}
-   function btnUpdateCancel(){
-	   	window.history.go(-1);
-	}
 
-   
-</script>
 </section>	
 <jsp:include page="../footer/footer.jsp" flush="true" />
 

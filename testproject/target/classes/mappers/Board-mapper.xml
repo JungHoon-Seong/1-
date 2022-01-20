@@ -53,6 +53,20 @@
 	]]>
 	</select>
 	
+	<select id="selectBoardListAll" resultMap="BoardMap">
+	SELECT 
+		bo_postNo,
+		bi_imgsrc,
+		bo_userNo,
+		bo_postTitle,
+		to_char(BO_CREATEDATE, 'YYYY/MM/DD') BO_CREATEDATE,
+		to_char(BO_UPDATEDATE, 'YYYY/MM/DD') BO_UPDATEDATE,
+		BO_POSTVIEW
+	 		FROM board 
+			LEFT OUTER JOIN board_image ON (bo_postNo = bi_postNo)
+	
+	</select>
+	
 	<!-- 
 	<select id="selectUserId" resuletMap="BoardMap">
 	select mm_userId 

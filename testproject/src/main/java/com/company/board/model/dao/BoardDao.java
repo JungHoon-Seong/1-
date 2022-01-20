@@ -75,4 +75,9 @@ public class BoardDao {
 		return result;
 	}
 
+	public List<Board> selectBoardListAll() {
+		List<Board> listResult = sqlSession.selectList("Board.selectBoardListAll");
+		return listResult;
+	}
+
 }

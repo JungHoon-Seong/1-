@@ -40,6 +40,14 @@ public class Member {
 	
 	
 
+	public Member(String id, String password, String email, String tel, char achk) {
+		this.mm_userId = id;
+		this.mm_userPwd = password;
+		this.mm_userEmail = email;
+		this.mm_userPhone = tel;
+		this.mm_adminCheck = achk;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [mm_userId=" + mm_userId + ", mm_userNo=" + mm_userNo + ", mm_userPwd=" + mm_userPwd

@@ -14,8 +14,16 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="./">Home</a></li>
-          <li><a class="nav-link scrollto" href="./memberjoin">회원가입</a></li>
-          <li><a class="nav-link scrollto" href="./login">로그인</a></li>
+          
+          <c:if test="${member != null}" >
+				<li id="idText">${member.mm_userId}님 </li>
+				 <a href="./logout">로그아웃</a>
+		  </c:if>
+          <c:if test="${member == null}" >
+	          <li><a class="nav-link scrollto" href="./userjoin">회원가입</a></li>
+	          <li><a class="nav-link scrollto" href="./login">로그인</a></li>
+          </c:if>
+          
           <li><a class="nav-link scrollto " href="./board">게시판</a></li>
           
           

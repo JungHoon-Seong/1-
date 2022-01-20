@@ -23,7 +23,7 @@
   <link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="resources/vendorremixiconremixicon.css" rel="stylesheet">
+  
   <link href="resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
@@ -45,7 +45,7 @@
 
 
 <script type="text/javascript" src="resources/js/common/jquery.js"></script>
-<script type="text/javascript" src="resources/js/common/jquery.jqGrid.min.js"></script>
+
 <script type="text/javascript" src="resources/js/common/i18n/grid.locale-kr.js"></script>
 
 
@@ -71,7 +71,7 @@ section {
 	margin: auto;
 }
 span {
-	float: left;
+	
 }
 table {
 	width: 1000px;
@@ -134,11 +134,11 @@ a:hover {
 
 #btnUpdate {
 	border: none;
-	border-raduis: 5px;
+	border-radius: 5px;
 	color: white;
 	padding: 10px 20px;
-	text-aling: center;
-	font-szie: 16px;
+	text-align: center;
+	font-size: 16px;
 	margin: 4px 2px;
 	cursor: pointer;
 	background-color: #00b0f0;
@@ -157,6 +157,7 @@ a:hover {
 }
 #btnUpdateDeleteBox {
 	width: 1000px;
+	margin-bottom: 50px;
 	
 }
 .btnUpdateDeleteBox {
@@ -169,6 +170,13 @@ button {
 section {
 	margin-top: 200px;
 }
+
+#idText {
+	color: #fff;
+	font-size: 14px;
+}
+
+
 </style>
 
 
@@ -183,6 +191,7 @@ section {
 		<button type='button' id='btnUpdate' onclick='' class="btnUpdateDeleteBox">수정</button>
 	    <button type='button' id='btnDelete' onclick='' class="btnUpdateDeleteBox">삭제</button>
     </div>
+<!-- 
 <table>
 	<tr>
 		<th> </th>
@@ -209,7 +218,7 @@ section {
 		</c:forEach>
 	</c:if>
 </table>
-
+ 
 <div id="paging">
 		<ul class="pagination">
 			<c:if test="${startPage > 1 }" >
@@ -221,12 +230,12 @@ section {
 				<li><a href="board?p=${endPage+1}">다음</a></li> </c:if>
 		</ul>
 	</div>
-	
+-->
 	
 	
 <!-- jqgrid 데모 -->
 <table id="jsonmap"></table>
-<div id="pjmap"></div>
+<div id="page"></div>
 	
 <div id="btnWriteBox">
 		<span></span>
@@ -239,43 +248,55 @@ section {
 
 <script>
 
-	
-	var GSON = ${GSON};
-	console.log(GSON);
 
-	$(document).ready(function(){
-		jQuery("#jsonmap").jqGrid({        
-		   	url:'board',
-		   	data: GSON,
-			datatype: "json",
-			mtype: "GET",
-		   	colNames:[' ','이미지', '제목', '글쓴이','조회수','작성일','수정일'],
-		   	colModel:[
-		   		{name:' ',index:'id', width:55},
-		   		{name:'bi_imgsrc',index:'imgsrc', width:90, jsonmap:"invdate"},
-		   		{name:'bo_postTitle',index:'postTitle', width:100},
-		   		{name:'bo_userNo',index:'bo_userNo', width:80, align:"right"},
-		   		{name:'bo_postView',index:'postView', width:80, align:"right"},		
-		   		{name:'bo_createDate',index:'createDate', width:80,align:"right"},		
-		   		{name:'bo_updateDate',index:'updateDate', width:150, sortable:false}		
-		   	],
-		   	rowNum:5,
-		   	rowList:[5,10,15,20],
-		   	pager: '#pjmap',
-		   	 
-		   	width: 990,
-		   	sortname: 'createDate',
-		    viewrecords: true,
-		    sortorder: "desc",
-			jsonReader: {
-				repeatitems : false,
-				id: "0"
-			},
-			caption: "게시판",
-			height: '200'
-		});
-		jQuery("#jsonmap").jqGrid('navGrid','#pjmap',{edit:false,add:false,del:false});
+
+
+$(document).ready(function(){
+	jQuery("#jsonmap").jqGrid({        
+		url:"./board",
+		datatype: "json",
+		
+		mtype: "POST",
+	   	colNames:["No.", '이미지', '제목', '글쓴이','조회수','작성일','수정일'],
+	   	colModel:[
+	   		{name:'bo_postNo',index:'bo_postNo', width:50,formatter:setLink },
+	   		{name:'bi_imgsrc',index:'bi_imgsrc', width:160},
+	   		{name:'bo_postTitle',index:'bo_postTitle', width:200  },
+	   		{name:'bo_userNo',index:'bo_userNo', width:80, align:"right"},
+	   		{name:'bo_postView',index:'bo_postView', width:80, align:"right"},		
+	   		{name:'bo_createDate',index:'bo_createDate', width:80,align:"right"},		
+	   		{name:'bo_updateDate',index:'bo_updateDate', width:80, sortable:false}		
+	   	],
+	   	rowNum:5,
+	   	rowList:[5,10,15,20],
+	   	pager: '#page',
+	   	loadonce :true,
+	   	width: 1000,
+	   	sortname: "bo_postNo",
+	    viewrecords: false,
+	    sortable: true,
+	    sortorder: "desc",
+		jsonReader: {
+			repeatitems : false,
+			id: "0"
+		},
+		caption: "게시판",
+		height: '125',
+		multiselect:true
 	});
+	jQuery("#jsonmap").jqGrid('navGrid','#page',{edit:false,add:false,del:false});
+});
+
+function setLink(cellval,options,rowObject){
+	
+	
+	url = '<a href="board-view?no='+cellval+'">'+cellval+'</a>';
+	return url;
+}
+
+function toContentViewLink(){
+	location.href="";
+}
 	
 	function btnWrite(){
 		location.href="./board-insert";

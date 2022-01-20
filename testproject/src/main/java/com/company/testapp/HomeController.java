@@ -39,8 +39,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		Member memberId = (Member)request.getSession().getAttribute("member");
-		model.addAttribute("memberId", memberId);
+		Member member = (Member)request.getSession().getAttribute("member");
+		model.addAttribute("member", memberId);
 		
 		return "home";
 	}

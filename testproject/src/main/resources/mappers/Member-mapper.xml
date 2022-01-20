@@ -18,5 +18,11 @@
 		WHERE mm_userid = #{mm_userId} AND mm_userpwd = #{mm_userPwd} 
 	</select>
 	
+	<insert id="insertMember" parameterType="Member"  statementType="PREPARED">
+		INSERT INTO MEMBER VALUES(#{mm_userId},
+			SEQ_member_no.nextval, #{mm_userPwd},
+			SYSDATE , #{mm_userEmail},
+			#{mm_userPhone}, #{mm_adminCheck})
+	</insert>
 	 
 </mapper>

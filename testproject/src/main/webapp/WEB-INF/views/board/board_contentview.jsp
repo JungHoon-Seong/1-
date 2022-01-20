@@ -70,42 +70,54 @@ table {
 	
 }
 #btnUpdate{
-	float: right;
+	
 	border: none;
-	border-raduis: 5px;
+	border-radius: 5px;
 	color: white;
 	padding: 10px 20px;
-	text-aling: center;
-	font-szie: 16px;
+	text-align: center;
+	font-size: 16px;
 	margin: 4px 2px;
 	cursor: pointer;
 	background-color: #00b0f0;
 }
 
 #btnDelete{
-	float: right;
+	
 	border: none;
-	 border-radius: 5px;
-	 color: white;
-	 padding: 10px 20px;
-	 text-align: center;
-	 font-size: 16px;
-	 margin: 4px 2px;
-	 cursor: pointer;
+	border-radius: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
 	background-color: #ff0000;
 }
 #btnToList {
-	
+	float: left;
 	border: none;
-	 border-radius: 5px;
-	 color: white;
-	 padding: 10px 20px;
-	 text-align: center;
-	 font-size: 16px;
-	 margin: 4px 2px;
-	 cursor: pointer;
+	border-radius: 5px;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
 	background-color: #1abc9c;
 }
+
+#btnBox {
+	width: 980px;
+	margin: auto;
+	text-align: right;
+}
+
+#idText {
+	color: #fff;
+	font-size: 14px;
+}
+
 </style>
 </head>
 <body>
