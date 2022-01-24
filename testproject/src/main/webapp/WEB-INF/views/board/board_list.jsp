@@ -117,6 +117,7 @@ a:hover {
  }
 
 #btnWrite {
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -186,11 +187,15 @@ section {
 <body>
 <jsp:include page="../header/header.jsp" flush="true" />
 <section>
-	<div id="btnUpdateDeleteBox">
-		<span></span>
-		<button type='button' id='btnUpdate' onclick='' class="btnUpdateDeleteBox">수정</button>
-	    <button type='button' id='btnDelete' onclick='' class="btnUpdateDeleteBox">삭제</button>
-    </div>
+
+<!-- 
+<div id="btnUpdateDeleteBox">
+	<span></span>
+	<button type='button' id='btnUpdate' onclick='' class="btnUpdateDeleteBox">수정</button>
+    <button type='button' id='btnDelete' onclick='' class="btnUpdateDeleteBox">삭제</button>
+   </div>
+-->
+    
 <!-- 
 <table>
 	<tr>
@@ -261,7 +266,7 @@ $(document).ready(function(){
 	   	colModel:[
 	   		{name:'bo_postNo',index:'bo_postNo', width:50,formatter:setLink },
 	   		{name:'bi_imgsrc',index:'bi_imgsrc', width:160},
-	   		{name:'bo_postTitle',index:'bo_postTitle', width:200  },
+	   		{name:'bo_postTitle',index:'bo_postTitle', width:200, formatter:urllink },
 	   		{name:'bo_userNo',index:'bo_userNo', width:80, align:"right"},
 	   		{name:'bo_postView',index:'bo_postView', width:80, align:"right"},		
 	   		{name:'bo_createDate',index:'bo_createDate', width:80,align:"right"},		
@@ -286,12 +291,23 @@ $(document).ready(function(){
 	});
 	jQuery("#jsonmap").jqGrid('navGrid','#page',{edit:false,add:false,del:false});
 });
-
+var urllink = "";
 function setLink(cellval,options,rowObject){
 	
 	
 	url = '<a href="board-view?no='+cellval+'">'+cellval+'</a>';
+
+	urllink = url;
+	
+	
+	
+	
 	return url;
+	
+}
+
+function urllink(urllink,options,rowObject){
+	return urllink;
 }
 
 function toContentViewLink(){

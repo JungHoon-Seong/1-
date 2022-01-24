@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.company.board.model.dao.BoardDao;
 import com.company.board.model.vo.Board;
+import com.company.reply.model.vo.Reply;
 
 @Service
 public class BoardService {
@@ -66,6 +67,10 @@ public class BoardService {
 
 	public List<Board> selectBoardListAll() {
 		return boardDao.selectBoardListAll();
+	}
+
+	public List<Reply> selectReplyList(Reply rvo) {
+		return boardDao.selectReplyList(rvo);
 	}
 
 	

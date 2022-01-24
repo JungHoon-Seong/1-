@@ -35,6 +35,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>내용조회- jqGrid 게시판 프로젝트</title>
 
 <style>
@@ -70,7 +71,7 @@ table {
 	
 }
 #btnUpdate{
-	
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -83,7 +84,7 @@ table {
 }
 
 #btnDelete{
-	
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -95,6 +96,7 @@ table {
 	background-color: #ff0000;
 }
 #btnToList {
+	width: 110px;
 	float: left;
 	border: none;
 	border-radius: 5px;
@@ -117,8 +119,33 @@ table {
 	color: #fff;
 	font-size: 14px;
 }
+#replyContent {
+	width: 680px;
+}
+.replyheaderList {
+	text-align: center;
+	border: none;
+	disabled;
+}
 
+.tdreplyContent{
+	text-align: left;
+}
+.replyTextList{
+	width: 680px;
+}
+#btnReplyCreate {
+	width: 85px;
+}
+
+.btnReplyUpdate,.btnReplyDelete {
+	background-color: white;
+}
 </style>
+
+
+
+
 </head>
 <body>
 
@@ -136,12 +163,12 @@ table {
 		<th>글쓴이</th>
 	</tr>
 	<tr>
-		<td></td>
+		<td id="postNoId">${vo.bo_postNo }</td>
 		<td>${vo.bo_createDate }</td>
 		<td>${vo.bo_updateDate }</td>
 		<td>${vo.bo_postView }</td>
 		<!-- todo postNo를 글쓴이로 보이기 위해서 select문으로 member테이블과 조회를 해주어야한다. -->
-		<td>${vo.bo_postNo }</td>
+		<td id="userNoId">${vo.bo_userNo }</td>
 	</tr>
 	<tr>
 		<th>제목</th>
@@ -157,13 +184,39 @@ table {
 		<td class="mainText" colspan="4">${vo.bo_postContent }</td>
 	</tr>
 	
+	
 	<tr>
 		<th>파일첨부</th>
 		<td class="mainText" colspan="4">${vo.bf_filesrc}</td>
 	</tr>
-	
-
-	
+	<c:if test="${replylist != null }">
+		<!-- 기존 댓글  리스트-->
+		<c:forEach items="${replylist}" var="re">
+		<tr>
+			<td class="tdReplyheader">
+				<input type="text" name="" id="" class="replyheaderList" readonly="readonly" value="${re.cb_commentUserId }">
+				
+			</td>
+			<td class="tdreplyContent" colspan="4"> 
+				<input type="text" name="" id="" class="replycommentNo"  value="${re.cb_commentNo}" hidden>
+				<input type="text" name="" id="" class="replyTextList"  value="${re.cb_comment }">
+				<c:if test="${re.cb_commentUserId == member.mm_userId }">
+					<button class="btnReplyUpdate"><img src="resources/img/댓글수정.png" width="25" height="25"/></button>
+	    			<button class="btnReplyDelete" onclick=""><img src="resources/img/댓글삭제.png" width="25" height="25"/><img src="" ></button>
+    			</c:if>
+			</td>
+			
+		</tr>
+		</c:forEach>
+	</c:if>
+	<tr>
+		<td class="tdReplyheader" id="replyMemberId">${member.mm_userId}</td>
+		<td class="tdreplyContent" colspan="4">
+			<input type="text" name="replyContent" id="replyContent" class="replyList">
+			<button id="btnReplyCreate" onclick="">댓글작성</button>
+		</td>
+	</tr>
+		
 	
 </table>
 <div id="btnBox">
@@ -188,6 +241,116 @@ function btnToList(){
 	location.href="./board";
 }
 
+$("#btnReplyCreate").click(function(){
+	//엽력값 유효성검사
+	var content = $("#replyContent").val();
+	if(content == ""){
+		alert("댓글의 내용을 입력하세요");
+		$("#replyContent").focus();
+		return;
+	}
+	
+	var postNo = $("#postNoId").text();
+	var userId = $("#replyMemberId").text();
+	var replyContent = $("#replyContent").val();
+	
+	console.log(postNo);
+	console.log(userId);
+	console.log(replyContent);
+	$.ajax({
+		type: "POST",
+		//url 제대로 확인할것.
+		url: "reply",
+		data: {
+			postNo : postNo,
+			userId : userId,
+			replyContent : replyContent
+		},
+ 		success : function(result){
+ 			console.log("결과는" + result);
+ 			location.reload();
+			//성공시 refesh
+ 		},
+ 		error : function( request, status, error){
+ 			console.log("상태: " + request.status +", 메시지" + request.reponseText +
+ 					"오류 : "+ error);
+ 		}
+ 
+		
+		 
+	 });
+});
+
+$(".btnReplyUpdate").click(function(){
+	//엽력값 유효성검사
+	var content = $(this).parent('td').children(".replyTextList").val();
+	if(content == ""){
+		alert("댓글의 내용을 입력하세요");
+		$(this).parent('td').children(".replyTextList").focus();
+		return;
+	}
+	var commentNo = $(this).parent('td').children('.replycommentNo').val();
+	var postNo = $("#postNoId").text();
+	var userId = $(this).parent('td').parent('tr').children('.tdReplyheader').children('.replyheaderList').val();
+	var replyContent = $(this).parent('td').children(".replyTextList").val();
+	console.log(commentNo);
+	console.log(postNo);
+	console.log(userId);
+	console.log(replyContent);
+	$.ajax({
+		type: "POST",
+		//url 제대로 확인할것.
+		url: "reply-update",
+		data: {
+			commentNo : commentNo,
+			postNo : postNo,
+			userId : userId,
+			replyContent : replyContent
+		},
+ 		success : function(result){
+ 			console.log("결과는" + result);
+ 			location.reload();
+			//성공시 refesh
+ 		},
+ 		error : function( request, status, error){
+ 			console.log("상태: " + request.status +", 메시지" + request.reponseText +
+ 					"오류 : "+ error);
+ 		}
+ 
+		
+		 
+	 });
+});
+
+$(".btnReplyDelete").click(function (){
+
+	
+	var commentNo = $(this).parent('td').children('.replycommentNo').val();
+	var userId = $(this).parent('td').parent('tr').children('.tdReplyheader').children('.replyheaderList').val();
+	console.log(commentNo);
+	console.log(userId);
+	$.ajax({
+		type: "POST",
+		//url 제대로 확인할것.
+		url: "reply-delete",
+		data: {
+			commentNo : commentNo,
+			userId : userId
+		},
+ 		success : function(result){
+ 			console.log("결과는" + result);
+ 			location.reload();
+			//성공시 refesh
+ 		},
+ 		error : function( request, status, error){
+ 			console.log("상태: " + request.status +", 메시지" + request.reponseText +
+ 					"오류 : "+ error);
+ 		}
+ 
+		
+		 
+	 });
+});
 </script>
 </c:forEach>
 </section>

@@ -42,6 +42,7 @@
 	margin-top: 200px;
 }
 #btnUpdate {
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -55,6 +56,7 @@
 }
 
 #btnUpdateCancel {
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;

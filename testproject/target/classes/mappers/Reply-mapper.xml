@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--  
+CB_COMMENTNO     NOT NULL NUMBER(11)     
+CB_POSTNO                 NUMBER(11)     
+CB_COMMENT       NOT NULL VARCHAR2(3000) 
+CB_COMMENTUSERID NOT NULL VARCHAR2(20)   
+CB_DELETEAT      NOT NULL CHAR(1)        
+CB_CREATEDATE    NOT NULL DATE           
+CB_UPDATEDATE    NOT NULL DATE       
+-->
+<mapper namespace="Reply">
+	<resultMap type="Reply" id="ReplyMap">
+		<id property="cb_commentNo" column="CB_COMMENTNO" />
+		<id property="cb_postNo" column="CB_POSTNO" />
+		<result property="cb_comment" column="CB_COMMENT" />
+		<result property="cb_commentUserId" column="CB_COMMENTUSERID" />
+		<result property="cb_deleteAt" column="CB_DELETEAT" />
+		<result property="cb_createDate" column="CB_CREATEDATE" />
+		<result property="cb_updateDate" column="CB_UPDATEDATE" />	
+	</resultMap>
+	
+	<select id="selectReplyList" resultMap="ReplyMap" parameterType="Reply">
+		SELECT * FROM CommentForBoard where cb_postNo = #{cb_postNo}
+	</select>
+			
+	<insert id="insertReply" parameterType="Reply" statementType="PREPARED">
+		INSERT INTO CommentForBoard(cb_commentNo, cb_postNo, cb_comment,cb_commentUserId) 
+			VALUES(SEQ_comment_no.nextval, #{cb_postNo}, #{cb_comment}, #{cb_commentUserId})
+	</insert>
+	
+	<update id="updateReply" parameterType="Reply" statementType="PREPARED">
+	<![CDATA[
+		UPDATE CommentForBoard SET CB_COMMENT = #{cb_comment}, CB_UPDATEDATE = SYSDATE
+			WHERE cb_postNo = #{cb_postNo} AND CB_COMMENTNO = #{cb_commentNo}
+	]]>
+	</update>
+	
+	<delete id="deleteReply" parameterType="Reply" statementType="PREPARED">
+		DELETE FROM CommentForBoard WHERE CB_COMMENTNO = #{cb_commentNo}	
+	</delete>
+
+</mapper>

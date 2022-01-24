@@ -40,7 +40,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		Member member = (Member)request.getSession().getAttribute("member");
-		model.addAttribute("member", memberId);
+		model.addAttribute("member", member);
 		
 		return "home";
 	}

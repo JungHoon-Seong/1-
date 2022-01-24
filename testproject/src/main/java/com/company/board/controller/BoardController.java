@@ -8,32 +8,28 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.company.board.model.vo.Board;
 import com.company.board.service.BoardService;
 import com.company.member.model.vo.Member;
+import com.company.reply.model.vo.Reply;
+import com.company.reply.service.ReplyService;
 import com.google.api.client.util.Value;
-import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.google.gson.Gson;
-import com.google.cloud.storage.Storage.BlobTargetOption;
-import com.google.cloud.storage.Storage.PredefinedAcl;
+
 
 
 @Controller
@@ -103,9 +99,10 @@ public class BoardController {
 		
 		
 		List<Board> blist = null;
-				
+		
 		try {
 			blist = boardService.selectBoardList(currentPage, PAGE_SIZE);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,7 +113,7 @@ public class BoardController {
 		mv.addObject("startPage",startPage);
 		mv.addObject("endPage",endPage);
 		mv.addObject("maxPage",maxPage);
-
+		
 		//System.out.println("컨트롤러 마지막접근");
 		mv.setViewName("/board/board_list");
 		
@@ -223,7 +220,7 @@ public class BoardController {
 			HttpServletRequest request) {
 		String viewPage = "";
 		
-		//Member member= (Member)request.getSession().getAttribute("member");
+		Member member= (Member)request.getSession().getAttribute("member");
 		
 		
 		List<Board> boardList = null;
@@ -234,17 +231,31 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		
+		List<Reply> replylist = null;
+		Reply rvo = new Reply(brno);
+//		System.out.println("brno의 값" + brno);
+//		System.out.println("컨트롤러 rvo의 값" + rvo);
 		boardService.boardPostviewUpdate(brno);
 		
+		try {
+			replylist= boardService.selectReplyList(rvo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		mv.addObject("blist",boardList);
-//		if(member != null) {
-//			mv.addObject("member", member.getMm_userId());
-//		}
+		if(member != null) {
+			mv.addObject("member", member);
+			
+		}
 		mv.setViewName(viewPage);
 		
-		
-		
+		if(replylist != null) {
+			mv.addObject("replylist", replylist);
+		}
 		return mv;
 	}
 	

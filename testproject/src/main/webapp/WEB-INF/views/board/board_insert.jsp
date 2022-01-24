@@ -39,6 +39,7 @@
 <style>
 
 #btnWrite {
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -51,6 +52,7 @@
 }
 
 #btnCancel {
+	width: 110px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -88,6 +90,7 @@ input[type="text"] {
 }
 #textContent {
 	width: 800px;
+	height: 250px;
 }
 	
 section {
@@ -106,6 +109,9 @@ section {
 	font-size: 14px;
 }
 
+input[type="file"] {
+	
+}
 </style>
 <script>
 function functionCancel(){
@@ -115,6 +121,8 @@ var varCancel = confirm("해당글의 작성을 취소하시겠습니까?")
 		window.history.go(-1);
 		}
 	}
+	
+
 
 </script>
 </head>

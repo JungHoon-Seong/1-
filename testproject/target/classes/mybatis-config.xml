@@ -10,7 +10,8 @@
 	  
 	
 	<typeAlias type="com.company.board.model.vo.Board" alias="Board"/>
-	<typeAlias type="com.company.member.model.vo.Member" alias="Member"/> 
+	<typeAlias type="com.company.member.model.vo.Member" alias="Member"/>
+	<typeAlias type="com.company.reply.model.vo.Reply" alias="Reply"/> 
 	
 </typeAliases>
 
@@ -18,6 +19,7 @@
 <mappers>
 	<mapper resource="mappers/Board-mapper.xml"/>
 	<mapper resource="mappers/Member-mapper.xml"/>
+	<mapper resource="mappers/Reply-mapper.xml"/>
 </mappers>
 
 

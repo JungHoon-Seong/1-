@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.company.board.model.vo.Board;
+import com.company.reply.model.vo.Reply;
 
 @Repository("boardDao")
 public class BoardDao {
@@ -78,6 +79,14 @@ public class BoardDao {
 	public List<Board> selectBoardListAll() {
 		List<Board> listResult = sqlSession.selectList("Board.selectBoardListAll");
 		return listResult;
+	}
+
+	public List<Reply> selectReplyList(Reply rvo) {
+		List<Reply> replylist = null;
+		System.out.println("dao단에서 확인한 rvo 값"+ rvo);
+		replylist = sqlSession.selectList("Reply.selectReplyList",rvo);
+		System.out.println("dao단에서 확인한 댓글리스트"+ replylist);
+		return replylist;
 	}
 
 }
