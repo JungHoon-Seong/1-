@@ -22,7 +22,7 @@ CB_UPDATEDATE    NOT NULL DATE
 	</resultMap>
 	
 	<select id="selectReplyList" resultMap="ReplyMap" parameterType="Reply">
-		SELECT * FROM CommentForBoard where cb_postNo = #{cb_postNo}
+		SELECT * FROM CommentForBoard where cb_postNo = #{cb_postNo} ORDER BY cb_commentNo ASC
 	</select>
 			
 	<insert id="insertReply" parameterType="Reply" statementType="PREPARED">

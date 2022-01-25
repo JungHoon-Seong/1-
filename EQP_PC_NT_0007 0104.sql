@@ -24,6 +24,9 @@ bo_updateDate date DEFAULT sysdate not null
 --REFERENCES member(mm_userNo)
 );
 
+SELECT * FROM board 
+		LEFT OUTER JOIN board_image ON (bo_postNo = bi_postNo);
+
 --게시물 이미지주소 저장용 테이블
 CREATE TABLE Board_Image(
 bi_imgNo number(11) PRIMARY KEY,
@@ -60,11 +63,14 @@ CB_updateDate date DEFAULT SYSDATE NOT NULL,
 CONSTRAINT fk_CommentForBoard
  FOREIGN KEY (cb_postNo)
   REFERENCES board(bo_postNo)
+  --ON DELETE CASCADE
 );
+ALTER TABLE CommentForBoard DROP CONSTRAINT FK_COMMENTFORBOARD;
 
-
+alter table CommentForBoard add constraint FK_COMMENTFORBOARD FOREIGN KEY(cb_postNo) 
+  REFERENCES board(bo_postNo) ON DELETE CASCADE;
 --번호들을 위한 시퀀스들
-
+COMMIT;
 CREATE SEQUENCE SEQ_member_no
 INCREMENT BY 1
 START WITH 0
@@ -113,14 +119,23 @@ insert into board values(SEQ_board_no.nextval,3,'두번째 글', '내용없음',0,sysdat
 insert into board values(SEQ_board_no.nextval,4,'세번째 글', '내용없음',0,sysdate,sysdate );
 insert into board values(SEQ_board_no.nextval,3,'네번째 글', '내용없음',0,sysdate,sysdate );
 insert into board values(SEQ_board_no.nextval,2,'다섯번째 글', '내용없음',0,sysdate,sysdate );
+insert into board values(SEQ_board_no.nextval,2,'여섯번째 글', '내용없음',0,sysdate,sysdate );
+
+
 commit;
 
 --insert into board values(SEQ_board_no.nextval,'tester01','여섯번째 글', '내용없음',0,sysdate );
 commit;
-
-
+select mm_userId 
+		from member 
+					left inner join board 
+									ON (mm_userNo = 0);
+select * from member;
+select * from board;
 desc board;
 select * from CommentforBoard;
+UPDATE BOARD SET bo_postTitle = #{bo_postTitle}, bo_postContent = #{bo_postContent} WHERE BO_POSTNO = 42
+
 
 select * from member;
 alter table member modify (MM_USERPHONE varchar(20));
@@ -187,7 +202,59 @@ desc board;
 desc board_image;
 desc board_file;
 desc commentforboard;
+SELECT * FROM board;
 
+SELECT 	
+        rownum Rnum,
+        bo_postNo,
+		bi_imgsrc,
+		bo_userNo,
+		bo_postTitle,
+		to_char(BO_CREATEDATE, 'YYYY/MM/DD') BO_CREATEDATE,
+		to_char(BO_UPDATEDATE, 'YYYY/MM/DD') BO_UPDATEDATE,
+		BO_POSTVIEW FROM board t1 LEFT OUTER JOIN board_image t2 ON (t1.bo_postNo = t2.bI_postNo);
+
+
+SELECT * FROM(
+	SELECT 	
+        rownum Rnum,
+        bo_postNo,
+		bi_imgsrc,
+		bo_userNo,
+		bo_postTitle,
+		to_char(BO_CREATEDATE, 'YYYY/MM/DD') BO_CREATEDATE,
+		to_char(BO_UPDATEDATE, 'YYYY/MM/DD') BO_UPDATEDATE,
+		BO_POSTVIEW FROM board t1 LEFT OUTER JOIN board_image t2 ON (t1.bo_postNo = t2.bI_postNo))
+		 ORDER BY bo_postNo DESC;
+
+INSERT INTO board(BO_POSTNO, ) VALUES();
+SELECT COUNT(*) FROM board;
+select * from board;
+desc board;
+UPDATE board SET bo_postView = bo_postView + 1  WHERE BO_POSTNO = 26;
+SELECT 
+	 bo_postNo, bi_imgsrc,  bo_postTitle, bo_postContent,
+	  to_char(bo_createDate, 'YYYY/MM/DD') bo_createDate ,
+	  to_char(bo_updateDate, 'YYYY/MM/DD') bo_updateDate ,
+	  bo_postView, bo_userNo, bf_filesrc 
+	  FROM board 
+	  			left outer join Board_Image 
+	  							ON (bo_postNo = bi_postNo) 
+	  			left outer join Board_file 
+	  							ON (bo_postNo = bf_postNo)
+        WHERE bo_postNo = 30;
 
 
 commit;
+select * from board;
+select * from member;
+
+delete from board where bo_postNo = 42;
+delete from board where bo_postNo = 43;
+commit;
+select * from CommentForBoard;
+SELECT * FROM CommentForBoard where cb_postNo = 30;
+SELECT CB_COMMENTNO, CB_COMMENTUSERID, CB_CREATEDATE FROM CommentForBoard where cb_postNo = 30;
+UPDATE CommentForBoard SET CB_COMMENT = '내용바꾸자', CB_UPDATEDATE = SYSDATE
+			WHERE cb_postNo = 30 AND CB_COMMENTNO = 0;
+desc CommentForBoard;

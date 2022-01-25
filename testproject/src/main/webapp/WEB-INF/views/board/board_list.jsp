@@ -286,7 +286,7 @@ $(document).ready(function(){
 			id: "0"
 		},
 		caption: "게시판",
-		height: '125',
+		height: '250',
 		multiselect:true
 	});
 	jQuery("#jsonmap").jqGrid('navGrid','#page',{edit:false,add:false,del:false});
